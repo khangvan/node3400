@@ -1,0 +1,33 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "pms",
+  "main": "Express.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "bootstrap": "^3.3.7",
+    "cmd-exec": "^0.1.0",
+    "datatables-query": "^0.2.0",
+    
+    "express":"3.0.5",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "mssql": "^3.3.0",
+    "nodejs": "^0.0.0",
+    "nodemailer": "^4.0.1",
+    "serialport": "^4.0.7",
+    "socket.io": "^1.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server8310.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://KhangVan@bitbucket.org/KhangVan/nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/KhangVan/nodejs#readme"
+}
