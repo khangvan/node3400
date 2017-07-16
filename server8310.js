@@ -26,7 +26,7 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req,res) {
-  res.render("sample");
+  res.render("main");
 });
 
 //var express = require('express');
@@ -56,13 +56,11 @@ var bodyParser = require('body-parser');
 });
 
 
-app.get('/show', function(req,res) { res.render("app/today")});
-app.get('/hero', function(req,res) { res.render("layouts/hero")});
-app.get('/marketing', function(req,res) { res.render("layouts/marketing-alternate")});
-app.get('/narrow', function(req,res) { res.render("layouts/marketing-narrow")});
-app.get('/signin', function(req,res) { res.render("layouts/signin")});
-app.get('/starter', function(req,res) { res.render("layouts/starter-template")});
-app.get('/sticky', function(req,res) { res.render("layouts/sticky-footer")});
+app.get('/show', function(req,res) { res.render("app/show")});
+app.get('/lineinput', function(req,res) { res.render("app/lineinput")});
+app.get('/lineshow', function(req,res) { res.render("app/lineshow")});
+
+
 
 
 
@@ -119,7 +117,7 @@ function getquerybyRequire(nhap) {
 app.get('/favicon.ico', function(req, res) {
     res.send(204);
 });
-
+/*--
 app.get('/:type', function (req, res) {
 
 
@@ -213,7 +211,7 @@ var jsonA =JSON.parse(JSON.stringify(recordset));
            else{
 
            }
-          */
+
 
 			console.log('001-then run '+query);
 
@@ -244,7 +242,7 @@ var jsonA =JSON.parse(JSON.stringify(recordset));
 
 });
 
-
+*/
 //// get for line
 app.get('/pms/:from&:to', function (req, res) {
    var rpttype =req.params.pmsreportype;
@@ -312,6 +310,32 @@ app.get('/pms/line=:linename', function (req, res) {
         });
     });
 });
+
+//CRUD#1 insert
+app.get('/pms8310/insert=:linename', function (req, res) {
+   var line =req.params.linename;
+ console.log('004-pmstodaydetail'+line);
+       // connect to your database
+    sql.connect(config, function (err) {
+
+        if (err) console.log(err);
+
+        // create Request object
+        var request = new sql.Request();
+
+        // query to the database and get the records
+        request.query("SELECT * FROM tempPOSUMrich where linename ='"+line+"'" , function (err, recordset) {
+
+            if (err) console.log(err)
+
+            // send records as a response
+            res.send(recordset);
+
+
+        });
+    });
+});
+
 
 app.get('/yield/:rpttype', function (req, res) {
    var rpttype =req.params.rpttype;
@@ -586,7 +610,21 @@ app.get('/mes/material/material=:pn/:en/:vn/:mat/:hs', function (req, res) {
 /*for mes-end*/
 //*/
 // dynamic query
+var leonardo = {
+        server: "vnmltme-vkhang\\sqlexpress",
+   database: "PMS",
+   user: "sa1",
+   password: "reports",
+   port: 1433
+   };
 
+var localhost = {
+        server: "vnmltme-vkhang\\sqlexpress",
+   database: "PMS",
+   user: "sa1",
+   password: "reports",
+   port: 1433
+   };
  var vnmsrv601 = {
          server: "10.84.10.67\\Siplace_2008r2ex",
     database: "FinalAssy",
@@ -620,15 +658,15 @@ app.get('/mes/material/material=:pn/:en/:vn/:mat/:hs', function (req, res) {
 
     var svkacsrpt2 = {
        server: "svkacsrpt2",
-  database: "RStaging",
-  user: "reports",
-  password: "reports",
-  port: 1433,
-  connectionTimeout: 300000,
-   requestTimeout: 300000,
-   pool: {
-       idleTimeoutMillis: 300000,
-       max: 100
+       database: "RStaging",
+       user: "reports",
+       password: "reports",
+       port: 1433,
+       connectionTimeout: 300000,
+       requestTimeout: 300000,
+       pool: {
+           idleTimeoutMillis: 300000,
+           max: 100
    }
   };
 
@@ -678,6 +716,9 @@ var mainconfig =req.params.server;
         else if (mainconfig=="svkacsrpt2")
            {
                mainconfig = svkacsrpt2;
+           }
+           else {
+            mainconfig = localhost;
            }
 
 
@@ -749,5 +790,5 @@ app.get('/jade/pms/:data', function (req, res) {
 
 
 var server = app.listen(5000, function () {
-    console.log('Server is running 5000..vnmacsrpt2');
+    console.log('Server is running at port 5000..');
 });
