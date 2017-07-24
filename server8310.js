@@ -59,7 +59,8 @@ var bodyParser = require('body-parser');
 app.get('/show', function(req,res) { res.render("app/show")});
 app.get('/lineinput', function(req,res) { res.render("app/lineinput")});
 app.get('/lineshow', function(req,res) { res.render("app/lineshow")});
-
+app.get('/issue', function(req,res) { res.render("app/issue")});
+app.get('/sample', function(req,res) { res.render("sample")});
 
 
 
@@ -648,13 +649,6 @@ var localhost = {
     port: 1433
     };
 
-    var vnmacsrpt2 = {
-       server: "vnmltme-vkhang//sqlexpress",
-  database: "PMS",
-  user: "sa1",
-  password: "reports",
-  port: 1433
-  };
 
     var svkacsrpt2 = {
        server: "svkacsrpt2",
