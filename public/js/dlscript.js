@@ -241,8 +241,8 @@ function jsFunction(value) {
 				rows: ["Linename", "ProdOrder", "SAP_model", "TGHOUR"],
 			    //"TGSHIFT", "ManPower","UnitCycleMin"
 				vals: ["AssemblyQty"],
-				aggregatorName: "Sum",
-				rendererName: "Table"
+				aggregatorName: "Integer Sum",
+				rendererName: "Heatmap"
 			,
 				renderers: $.extend(
 						$.pivotUtilities.renderers,
