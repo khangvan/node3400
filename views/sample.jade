@@ -1,24 +1,31 @@
 doctype html
 html
-	head
-		title Khang Learn Jade
-	body
-		h1 Test function
-		input(type="text", placeholder ="nhap thong tin")
-	script(type="text/javascript", src="js/script.js")
-	script.
-		alert (data.name);
-		
+ head
+  title Khang Learn Jade
+ body
+  h1 Test function
+  input(type="text", placeholder ="nhap thong tin")
+ script(type="text/javascript", src="js/script.js")
+ script.
+  //alert (data.name);
+   alert(url);
+   var newserial = logSerial();
+   newserial.setInfo(1,2,3,4);
+   newserial.log();
+  
+ button(type="submit", ) nhan
+ 
+ h1 test here
+ h2 go then to
+ a(href="google.com") link      
+ p `day la 
+   |phan data
+   |can thiet `
 
-	h1 test here
-	h2 go then to
-	a(href="google.com") link      
 
-
-
-		- var droids = ["R2D2", "C3PO", "BB8"];
+  - var droids = ["R2D2", "C3PO", "BB8"];
 div
-	h1 Famous Droids from Star Wars
-	for name in droids
-		div.card
-			h2= name
+ h1 Famous Droids from Star Wars
+ for name in droids
+  div.card
+   h2= name
