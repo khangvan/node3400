@@ -224,54 +224,93 @@ function jsFunction(value) {
 	var type = value;
 	if (type==0) type =1;
 
-	if (type ==1)
-	{
-
-		var vncf=
-		{
-		    mainurl:"http://vnmacsrpt2:5000/sumhour"
-
-		}
-
-		$.getJSON(vncf.mainurl, function (mps) {
-
-
-			$("#output").pivotUI(mps, {
-				cols: ["Event_date", "Shift", "Event_Hour"],
-				rows: ["Linename", "ProdOrder", "SAP_model", "TGHOUR"],
-			    //"TGSHIFT", "ManPower","UnitCycleMin"
-				vals: ["AssemblyQty"],
-				aggregatorName: "Integer Sum",
-				rendererName: "Heatmap"
-			,
-				renderers: $.extend(
-						$.pivotUtilities.renderers,
-						$.pivotUtilities.c3_renderers,
-						$.pivotUtilities.export_renderers
-						),
+ 	if (type ==1)
+ 	{
 
 
 
-				rendererOptions: {
-					heatmap: {
-						colorScaleGenerator: function (values) {
-							return d3.scale.linear()
-								.domain([0 ,90,  95])
-								.range(["#F77", "#F77", "#77F"])
+ 		$.getJSON("http://vnmacsrpt2:5000/sumhour", function (mps) {
+ 			$("#output").pivotUI(mps, {
 
-						}
-					}
-				}
+ 				cols: ["Event_date", "Shift", "Event_Hour"],
+ 				rows: ["Linename", "ProdOrder", "SAP_model", "TGHOUR"],
+ 			    //"TGSHIFT", "ManPower","UnitCycleMin"
+ 				vals: ["AssemblyQty"],
+ 				aggregatorName: "Integer Sum",
+ 				rendererName: "Heatmap"
+ 				,
+ 				renderers: $.extend(
+ 						$.pivotUtilities.renderers,
+ 						$.pivotUtilities.c3_renderers,
+ 						$.pivotUtilities.export_renderers
+ 						),
+
+
+
+ 				rendererOptions: {
+ 					heatmap: {
+ 						colorScaleGenerator: function (values) {
+ 							return d3.scale.linear()
+ 								.domain([0 ,90,  95])
+ 								.range(["#F77", "#F77", "#77F"])
+
+ 						}
+ 					}
+ 				}
 
 
 
 
+ 			}
+ 			);
 
-			}
-			);
-
-		});
-	}
+ 		});
+ 	}
+//
+// 	if (type ==1)
+// 	{
+//
+//
+// let  url =`http://hunsmt-leonardo:5000/sql/leonardo/exec PMS.dbo.[ame_Report_client]`;
+// 		$.getJSON(url, function (mps) {
+//
+//
+// 			$("#output").pivotUI(mps, {
+// 				cols: ["EventDate",  "EventHour"],
+// 				rows: ["Machine" , "Recipe"],
+// 			    //"TGSHIFT", "ManPower","UnitCycleMin"
+// 				vals: ["lBoardNumber"],
+// 				aggregatorName: "Count",
+// 				rendererName: "Heatmap"
+// 			,
+// 				renderers: $.extend(
+// 						$.pivotUtilities.renderers,
+// 						$.pivotUtilities.c3_renderers,
+// 						$.pivotUtilities.export_renderers
+// 						)
+//    //
+//    //
+//    //
+// 			// 	,rendererOptions: {
+// 			// 		heatmap: {
+// 			// 			colorScaleGenerator: function (values) {
+// 			// 				return d3.scale.linear()
+// 			// 					.domain([0 ,90,  95])
+// 			// 					.range(["#F77", "#F77", "#77F"])
+//    //
+// 			// 			}
+// 			// 		}
+// 			// 	}
+//
+//
+//
+//
+//
+// 			}
+// 			);
+//
+// 		});
+// 	}
 
 
 	if (type == 7) { //y today
@@ -359,16 +398,16 @@ function jsFunction(value) {
 	}
 
 
-	if (type == 2) // output with man
+	if (type == 2) // change over time
 	{
-
-		$.getJSON("http://vnmacsrpt2:5000/sumhourman", function (mps) {
+let  url =`http://hunsmt-leonardo:5000/sql/leonardo/exec PMS.dbo.reportChangeOver`;
+		$.getJSON(url, function (mps) {
 			$("#output").pivotUI(mps, {
-				cols: ["Event_date", "Shift", "Event_Hour"],
-				rows: ["Linename", "ProdOrder", "SAP_model", "TGHOUR", "ManPower"],
-				vals: ["AssemblyQty"],
+				cols: ["dtTime"],
+				rows: ["Machine","WhatChange"],
+				vals: ["RunningTimeMin"],
 				aggregatorName: "Integer Sum",
-				rendererName: "Heatmap"
+				rendererName: "Table"
 			});
 		});
 	}
