@@ -19,17 +19,19 @@ var myList;
 
 
 
-var url =`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20PMS.dbo.serialLOG`;
-var urlsmt =`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20PMS.dbo.serialLOG`;
+var urlx =`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20PMS.dbo.serialLOG`;
+//var url =`http://localhost:5000/sql/leonardo/exec PMS.dbo.[ame_Report_client] '', ''`;
+var url =`http://hunsmt-leonardo:5000/sql/leonardo/exec PMS.dbo.[ame_Report_client]`;
 
 // Builds the HTML Table out of myList json data from Ivy restful service.
  function buildHtmlTable() {
-
-  $.getJSON(url, function (data, status) {
+  console.log("go convert");
+  $.getJSON(url, function (data) {
     //if (status === 200) {
       //Do stuff with the JSON data
+      console.log(url);
       myList = data;
-     // alert ("my list inside "+JSON.stringify(myList));
+      //alert ("my list inside "+JSON.stringify(myList));
            var columns = addAllColumnHeaders(myList);
 
            for (var i = 0 ; i < myList.length ; i++) {
@@ -45,8 +47,6 @@ var urlsmt =`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20
            }
     //}
   });
-
-
  }
 
  // Adds a header row to the table and returns the set of columns.
