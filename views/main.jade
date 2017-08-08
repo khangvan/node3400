@@ -2,7 +2,7 @@
 html(lang='en')
   head
     meta(charset='utf-8')
-    title DATALOGIC-PRODUCTION MONITORING-DEMO
+    title DATALOGIC VIETNAM-PMS
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='description', content='')
     meta(name='author', content='')
@@ -32,7 +32,7 @@ html(lang='en')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand(href='') PRODUCTION MONITORING
+          a.brand(href='') HOME PAGE
           .nav-collapse.collapse
             //p.navbar-text.pull-right
             //  | Logged in as
@@ -44,45 +44,60 @@ html(lang='en')
                 a(href='show') SHOW
               li
                 a(href='lineshow') LINE
-//top menu
+
 .container-fluid
       
         .span12
           .hero-unit
-            h1 HELLO HUNGRARY TEAM!
-            p
-              | This demo show production monitoring 
-            p
-              a.btn.btn-primary.btn-large to details »
+            h1 VIETNAM MONITORING SYSTEM
+              //a.btn.btn-primary.btn-large to details »
+        .span12
+          .hero-unit
+            h2 SMT MONITORING DATA
+              //a.btn.btn-primary.btn-large to details »
           .row-fluid
             .span4
-              h2 SHOW ALL
+              h2 SHOW ALL OUTPUT
               p
-                | Data extract is pull hourly. This report show all ouput in current date
+                | Xem dữ liệu output hàng giờ
               p
                 a.btn(href='show') View details »
             // /span
             .span4
-              h2 LINE INPUT
+              h2 INPUT-ASSY LINE
               p
                 | To assembly line, in case no data warehouse, we need to input manually for serial mode.
                 
               p
                 a.btn(href='lineinput') View details »
             .span4
-              h2 LINE SHOW
+              h2 OUTPUT EA. LINE
               p
                 | To each line need to view realtime output data, go this report to see daily output vs target.
               p
                 a.btn(href='lineshow') View details »
            .row-fluid
              .span4
-               h2 LINE REPORT ISSUE
+               h2 REPORT ISSUE
                p
                 | To quick report issue, use this input form
                p
                a.btn(href='issue') View details »
-               
+             .span4
+               h2 CHANGE OVER TIME
+               p
+                | Change Over Time for each change Machine, Recipe, Board
+               p
+               a.btn(href='changeover') View details »
+              .span4
+                h2 SMT Downtime
+                p
+                 | SMT Downtime
+                 :markdown
+                  This is some **text** with a [FuseSource](smtdowntime) link. 
+                  
+                p
+                a.btn(href='smtdowntime') View details »
         
       hr
       footer
