@@ -96,7 +96,7 @@ body
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-              a.brand(href='') PRODUCTION MONITORING
+              a.brand(href='') HOURLY OUTPUT
               .nav-collapse.collapse
                 //p.navbar-text.pull-right
                 //  | Logged in as
@@ -112,15 +112,18 @@ body
 script(type='text/javascript', charset='utf8', src='js/dlscript.js')
 script(type='text/javascript', charset='utf8', src='js/dlconfig.js')
 h3
-  | CHỌN LOẠI REPORT BÊN DƯỚI:
+  //| HOURLY OUTPUT
 select#ddlViewBy(onmousedown="this.value='';", onchange='jsFunction(this.value);')
   option(value='1') Output Hourly
-  option(value='2') Output vs Operator
+  option(value='2') Change Over Time
   option(value='3') Using History
   option(value='4') JAS Capacity
   option(value='5') Output Hourly subtotal
   option(value='7') Yield Today
   option(value='8') Yield Serial
+input(type="text", placeholder="From")
+input(type="text", placeholder="To")
+button.btn.btn-primary(type="submit") View Data
 #output  
 #outputdetail  
 table#tableDiv.display(width='100%', cellspacing='0')  
