@@ -1,54 +1,53 @@
 !!!5
 html(lang='en')
-  head
-    meta(charset='utf-8')
-    title LineShow
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    meta(name='description', content='')
-    meta(name='author', content='')
-    link(href='/css/bootstrap.css', rel='stylesheet')
-    style(type='text/css')
-      body {
-      padding-top: 60px;
-      padding-bottom: 40px;
-      }
-      .sidebar-nav {
-      padding: 9px 0;
-      }
-    link(href='/css/bootstrap-responsive.css', rel='stylesheet')
-    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/ico/apple-touch-icon-144-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/ico/apple-touch-icon-114-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/ico/apple-touch-icon-72-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', href='/ico/apple-touch-icon-57-precomposed.png')
-    link(rel='shortcut icon', href='/ico/favicon.png')
-    script(type="text/javascript", src="js/jquery.min.js")
-    script(type="text/javascript", src="js/etl.js")
+head
+  meta(charset='utf-8')
+  title DATALOGIC-PRODUCTION MONITORING-DEMO
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  meta(name='description', content='')
+  meta(name='author', content='')
+  link(href='/css/bootstrap.css', rel='stylesheet')
+  style(type='text/css')
+    body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    }
+    .sidebar-nav {
+    padding: 9px 0;
+    }
+  script(type='text/javascript', src='js/jquery.min.js')
+  script(type="text/javascript", src="js/etl.js")
+//.body
 body(onload=`buildHtmlTable('#excelDataTable')`)
+ //top menu
  .navbar.navbar-inverse.navbar-fixed-top
-   .navbar-inner
-     .container-fluid
-       a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-         span.icon-bar
-         span.icon-bar
-         span.icon-bar
-       a.brand(href='#') Project name
-       .nav-collapse.collapse
-         p.navbar-text.pull-right
-           | Logged in as
-           a.navbar-link(href='#') Username
-         ul.nav
-           li.active
-             a(href='#') Home
-           li
-             a(href='#about') About
-           li
-             a(href='#contact') Contact
+  .navbar-inner
+    .container-fluid
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand(href='') PRODUCTION MONITORING
+      .nav-collapse.collapse
+        //p.navbar-text.pull-right
+        //  | Logged in as
+        //  a.navbar-link(href='#') Username
+        ul.nav
+          li.active
+            a(href='/') HOME
+          li
+            a(href='show') SHOW
+          li
+            a(href='lineshow') LINE
+ //top menu
  .container-fluid
-          .row-fluid
-            .span12
-              h2 LineShow
-              table#excelDataTable(border='1')
-              
-      hr
-      footer
-        p © Company 2012
+  .row-fluid
+    .span12
+      h2 LineShow
+      table#excelDataTable(border='1')
+      //table#excelDataTable1
+   script.
+  
+  hr
+  footer
+    p © DATALOGIC 2017 
