@@ -76,8 +76,10 @@ app.get('/lineshow', function(req,res) { res.render("app/lineshow")});
 app.get('/lineshowpv', function(req,res) { res.render("app/lineshowPV")});
 app.get('/issue', function(req,res) { res.render("app/issue")});
 app.get('/changeover', function(req,res) { res.render("app/changeover")});
-app.get('/sample', function(req,res) { res.render("sample")});
 app.get('/smtdowntime', function(req,res) { res.render("app/smtdowntime")});
+app.get('/sample', function(req,res) { res.render("sample")});
+app.get('/reporttemplate', function(req,res) { res.render("reporttemplate")});
+
 
 
 var dataroot=
@@ -467,77 +469,77 @@ app.get('/qms/pk/:modeinout,:serial,:model,:location,:defectcode,:op', function 
 var mysql = require('mysql');
 
 
-
-app.get('/mes/material/', function (req, res) {
-
-           var mysql610 = mysql.createConnection({
-          host: "vnmsrv610.dl.net",
-          user: "reports",
-          password: "reports",
-            database: "VNMHSCode"
-        });
-
-          var fullDate = new Date()
-          console.log("#all material------------------------------------------#"+fullDate);
-
-          // connect to your database
-          mysql610.connect(function(err) {
-          if (err) throw err;
-          console.log("Connected!");
-
-
-          var strquery ='call VNMHSCode.ame_getmaterlist';
-          console.log(strquery);
-
-          mysql610.query(strquery, function (err, result) {
-          if (err)  console.log(err);
-          res.send(result);
-          //console.log("Result: " + JSON.stringify(result));
-
-           var fullDateend = new Date()
-          console.log("#done -------------------------------------#"+fullDateend);
-          });
-        });
-
-});//endmes/material
-
-
-app.get('/mes/material/material=:pn/:en/:vn/:mat/:hs', function (req, res) {
-
-           let mysql610 = mysql.createConnection({
-          host: "vnmsrv610.dl.net",
-          user: "reports",
-          password: "reports",
-            database: "VNMHSCode"
-        });
-
-          var fullDate = new Date()
-          console.log("#update material------------------------------------------#"+fullDate);
-
-
-
-          // connect to your database
-          mysql610.connect(function(err) {
-          if (err) throw err;
-          console.log("Connected!");
-
-
-          var strquery ="call VNMHSCode.ame_updata ('"+req.params.pn+"', '"+req.params.en+" ', '"+req.params.vn+" ', '"+req.params.mat+" ', '"+req.params.hs+ "')";
-          console.log(strquery);
-
-          mysql610.query(strquery, function (err, result) {
-          if (err)  console.log(err);
-          //res.send(result);
-            //res.sendStatus(result);
-          //console.log("Result: " + JSON.stringify(result));
-            console.log("Done up data");
-
-           var fullDateend = new Date()
-          console.log("#done -------------------------------------#"+fullDateend);
-          });
-        });
-
-});//endmes/material
+//
+// app.get('/mes/material/', function (req, res) {
+//
+//            var mysql610 = mysql.createConnection({
+//           host: "vnmsrv610.dl.net",
+//           user: "reports",
+//           password: "reports",
+//             database: "VNMHSCode"
+//         });
+//
+//           var fullDate = new Date()
+//           console.log("#all material------------------------------------------#"+fullDate);
+//
+//           // connect to your database
+//           mysql610.connect(function(err) {
+//           if (err) throw err;
+//           console.log("Connected!");
+//
+//
+//           var strquery ='call VNMHSCode.ame_getmaterlist';
+//           console.log(strquery);
+//
+//           mysql610.query(strquery, function (err, result) {
+//           if (err)  console.log(err);
+//           res.send(result);
+//           //console.log("Result: " + JSON.stringify(result));
+//
+//            var fullDateend = new Date()
+//           console.log("#done -------------------------------------#"+fullDateend);
+//           });
+//         });
+//
+// });//endmes/material
+//
+//
+// app.get('/mes/material/material=:pn/:en/:vn/:mat/:hs', function (req, res) {
+//
+//            let mysql610 = mysql.createConnection({
+//           host: "vnmsrv610.dl.net",
+//           user: "reports",
+//           password: "reports",
+//             database: "VNMHSCode"
+//         });
+//
+//           var fullDate = new Date()
+//           console.log("#update material------------------------------------------#"+fullDate);
+//
+//
+//
+//           // connect to your database
+//           mysql610.connect(function(err) {
+//           if (err) throw err;
+//           console.log("Connected!");
+//
+//
+//           var strquery ="call VNMHSCode.ame_updata ('"+req.params.pn+"', '"+req.params.en+" ', '"+req.params.vn+" ', '"+req.params.mat+" ', '"+req.params.hs+ "')";
+//           console.log(strquery);
+//
+//           mysql610.query(strquery, function (err, result) {
+//           if (err)  console.log(err);
+//           //res.send(result);
+//             //res.sendStatus(result);
+//           //console.log("Result: " + JSON.stringify(result));
+//             console.log("Done up data");
+//
+//            var fullDateend = new Date()
+//           console.log("#done -------------------------------------#"+fullDateend);
+//           });
+//         });
+//
+// });//endmes/material
 
 
 
@@ -639,11 +641,8 @@ function cleanforSQL(strquery){
 }
 
 app.get('/sql/:server/:data', function (req, res) {
-
-
-
-
 var mainconfig =req.params.server;
+var ismysql = false; // default for mssql
     if (mainconfig=="vnmsrv601")
         {
             mainconfig = vnmsrv601;
@@ -670,9 +669,16 @@ var mainconfig =req.params.server;
               {
                   mainconfig = smta;
        }
+       else if (mainconfig=="vnmsrv610")
+              {
+
+            ismysql = true;
+       }
            else {
             mainconfig = localhost;
            }
+
+if (ismysql == false) { //mssql
 
 
      //console.log(JSON.stringify(mainconfig));
@@ -703,6 +709,41 @@ var mainconfig =req.params.server;
 
 
     });
+   } // mssql done
+
+   else if (ismysql==true) {
+
+    let mysql610 = mysql.createConnection({
+   host: "vnmsrv610.dl.net",
+   user: "reports",
+   password: "reports",
+     database: "VNMHSCode"
+ });
+    // connect to your database
+    mysql610.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected! 610");
+
+    var strquery = req.params.data.toString();
+    strquery= cleanforSQL(strquery); // new data
+    console.log(strquery);
+
+    // var strquery ="call VNMHSCode.ame_updata ('"+req.params.pn+"', '"+req.params.en+" ', '"+req.params.vn+" ', '"+req.params.mat+" ', '"+req.params.hs+ "')";
+    // console.log(strquery);
+
+    mysql610.query(strquery, function (err, result) {
+    if (err)  console.log(err);
+    res.send(result);
+      //res.sendStatus(result);
+    //console.log("Result: " + JSON.stringify(result));
+
+
+     var fullDateend = new Date()
+    console.log("#done -------------------------------------#"+fullDateend);
+    });
+  });
+   }
+
 });
 
 
