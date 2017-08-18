@@ -27,7 +27,7 @@ head
   //script(src='/js/jquery.dataTables.js')
   //script(type="text/javascript", src="js/etl.js")
 //.body
-body(onload=`buildHtmlTable('#excelDataTable')`)
+body(onload=`buildHtmlTable('http://vnmacsrpt2:5000/test','#excelDataTable')`)
  
  
 
@@ -60,37 +60,36 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
       //table#excelDataTable1
    script.
     
-    
-    
-    // var myList=[{"name" : "abc", "age" : 50},
-    //             {"name" : "25", "age" : 20},
-    //             {"name" : "xyz", "hobby" : "programming"},
-    //             {"name" : "khang", "hobby" : "programming", age:40},
-    //             {"name" : "myteam", "hobby" : "process enginering", age:25}
-    //             ];
-    var myList;
-    
-    // $.getJSON(`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20PMS.dbo.serialLOG`, function (data) {
-    //
-    // //alert ("data is "+JSON.stringify(data));
-    // myList = data;
-    // //alert ("my list "+JSON.stringify(myList));
-    //
-    // });
-    
-    
-    
-    var server =`http://vnmacsrpt2:5000/`
-    var url =server+`test`;
-    
+       
     // Builds the HTML Table out of myList json data from Ivy restful service.
-     function buildHtmlTable() {
-      console.log("go convert");
+     function buildHtmlTable(url, SharpWID) {
+     var myList;
+      console.log("go convert"+SharpWID);
       $.getJSON(url, function (data) {
         //if (status === 200) {
           //Do stuff with the JSON data
           console.log(url);
           myList = data;
+          
+          function addAllColumnHeaders(myList)
+          {
+              var columnSet = [];
+              var headerTr$ = $('<tr/>');
+         
+              for (var i = 0 ; i < myList.length ; i++) {
+                  var rowHash = myList[i];
+                  for (var key in rowHash) {
+                      if ($.inArray(key, columnSet) == -1){
+                          columnSet.push(key);
+                          headerTr$.append($('<th/>').html(key));
+                      }
+                  }
+              }
+              //- $("#excelDataTable").append(headerTr$);
+         $(SharpWID).append(headerTr$);
+              return columnSet;
+          }
+          
           //alert ("my list inside "+JSON.stringify(myList));
                var columns = addAllColumnHeaders(myList);
     
@@ -103,9 +102,10 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
     
                        row$.append($('<td/>').html(cellValue));
                    }
-                   $("#excelDataTable").append(row$);
+                   $(SharpWID).append(row$);
+                   //- $("#excelDataTable").append(row$);
                }
-        $("#excelDataTable").dataTable();
+        //- $("#excelDataTable").dataTable();
       });
        
      }
@@ -113,24 +113,24 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
      // Adds a header row to the table and returns the set of columns.
      // Need to do union of keys from all records as some records may not contain
      // all records
-     function addAllColumnHeaders(myList)
-     {
-         var columnSet = [];
-         var headerTr$ = $('<tr/>');
-    
-         for (var i = 0 ; i < myList.length ; i++) {
-             var rowHash = myList[i];
-             for (var key in rowHash) {
-                 if ($.inArray(key, columnSet) == -1){
-                     columnSet.push(key);
-                     headerTr$.append($('<th/>').html(key));
-                 }
-             }
-         }
-         $("#excelDataTable").append(headerTr$);
-    
-         return columnSet;
-     }
+     //- function addAllColumnHeaders(myList)
+     //- {
+     //-     var columnSet = [];
+     //-     var headerTr$ = $('<tr/>');
+     //- 
+     //-     for (var i = 0 ; i < myList.length ; i++) {
+     //-         var rowHash = myList[i];
+     //-         for (var key in rowHash) {
+     //-             if ($.inArray(key, columnSet) == -1){
+     //-                 columnSet.push(key);
+     //-                 headerTr$.append($('<th/>').html(key));
+     //-             }
+     //-         }
+     //-     }
+     //-     $("#excelDataTable").append(headerTr$);
+     //- 
+     //-     return columnSet;
+     //- }
 
 
   hr
