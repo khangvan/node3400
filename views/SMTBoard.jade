@@ -2,11 +2,13 @@
 html(lang='en')
 head
   meta(charset='utf-8')
-  title DATALOGIC-PRODUCTION MONITORING-DEMO
+  title TEMPLATE 
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
   meta(name='description', content='')
   meta(name='author', content='')
   link(href='/css/bootstrap.css', rel='stylesheet')
+  link(rel='stylesheet', type='text/css', href='http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css')
+
   style(type='text/css')
     body {
     padding-top: 60px;
@@ -15,10 +17,20 @@ head
     .sidebar-nav {
     padding: 9px 0;
     }
-  script(type='text/javascript', src='js/jquery.min.js')
+  //script(type='text/javascript', charset='utf8', src='https://code.jquery.com/jquery-1.12.4.js')
+  script(type='text/javascript', charset='utf8', src='js/jquery.js')
+  // Datatables
+  //script(type='text/javascript', charset='utf8', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')
+  //script(type='text/javascript', src='js/jquery.min.js')
+  script(type='text/javascript', charset='utf8', src='https://code.jquery.com/jquery-1.12.4.js')
+  script(src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js')
+  //script(src='/js/jquery.dataTables.js')
   //script(type="text/javascript", src="js/etl.js")
 //.body
 body(onload=`buildHtmlTable('#excelDataTable')`)
+ 
+ 
+
  //top menu
  .navbar.navbar-inverse.navbar-fixed-top
   .navbar-inner
@@ -43,7 +55,7 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
  .container-fluid
   .row-fluid
     .span12
-      h2 LineShow
+      h2 SHOW INFO
       table#excelDataTable(border='1')
       //table#excelDataTable1
    script.
@@ -68,9 +80,8 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
     
     
     
-    var urlx =`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20PMS.dbo.serialLOG`;
-    //var url =`http://localhost:5000/sql/leonardo/exec PMS.dbo.[ame_Report_client] '', ''`;
-    var url =`http://localhost:5000/sql/smta/exec dbo.[amevn_Downtime]`;
+    var server =`http://vnmacsrpt2:5000/sql/`
+    var url =server+`smta/[SiplaceOIS].dbo.amevn_BoardCounting`;
     
     // Builds the HTML Table out of myList json data from Ivy restful service.
      function buildHtmlTable() {
@@ -94,8 +105,9 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
                    }
                    $("#excelDataTable").append(row$);
                }
-        //}
+        $("#excelDataTable").dataTable();
       });
+       
      }
     
      // Adds a header row to the table and returns the set of columns.
@@ -120,7 +132,7 @@ body(onload=`buildHtmlTable('#excelDataTable')`)
          return columnSet;
      }
 
-  
+
   hr
   footer
     p © DATALOGIC 2017 

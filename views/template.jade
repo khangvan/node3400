@@ -1,0 +1,138 @@
+!!!5
+html(lang='en')
+head
+  meta(charset='utf-8')
+  title TEMPLATE 
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  meta(name='description', content='')
+  meta(name='author', content='')
+  link(href='/css/bootstrap.css', rel='stylesheet')
+  link(rel='stylesheet', type='text/css', href='http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css')
+
+  style(type='text/css')
+    body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    }
+    .sidebar-nav {
+    padding: 9px 0;
+    }
+  //script(type='text/javascript', charset='utf8', src='https://code.jquery.com/jquery-1.12.4.js')
+  script(type='text/javascript', charset='utf8', src='js/jquery.js')
+  // Datatables
+  //script(type='text/javascript', charset='utf8', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')
+  //script(type='text/javascript', src='js/jquery.min.js')
+  script(type='text/javascript', charset='utf8', src='https://code.jquery.com/jquery-1.12.4.js')
+  script(src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js')
+  //script(src='/js/jquery.dataTables.js')
+  //script(type="text/javascript", src="js/etl.js")
+//.body
+body(onload=`buildHtmlTable('#excelDataTable')`)
+ 
+ 
+
+ //top menu
+ .navbar.navbar-inverse.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand(href='') PRODUCTION MONITORING
+      .nav-collapse.collapse
+        //p.navbar-text.pull-right
+        //  | Logged in as
+        //  a.navbar-link(href='#') Username
+        ul.nav
+          li.active
+            a(href='/') HOME
+          li
+            a(href='show') SHOW
+          li
+            a(href='lineshow') LINE
+ //top menu
+ .container-fluid
+  .row-fluid
+    .span12
+      h2 SHOW INFO
+      table#excelDataTable(border='1')
+      //table#excelDataTable1
+   script.
+    
+    
+    
+    // var myList=[{"name" : "abc", "age" : 50},
+    //             {"name" : "25", "age" : 20},
+    //             {"name" : "xyz", "hobby" : "programming"},
+    //             {"name" : "khang", "hobby" : "programming", age:40},
+    //             {"name" : "myteam", "hobby" : "process enginering", age:25}
+    //             ];
+    var myList;
+    
+    // $.getJSON(`http://localhost:5000/sql/localhost/select%20top%2010%20*%20from%20PMS.dbo.serialLOG`, function (data) {
+    //
+    // //alert ("data is "+JSON.stringify(data));
+    // myList = data;
+    // //alert ("my list "+JSON.stringify(myList));
+    //
+    // });
+    
+    
+    
+    var server =`http://vnmacsrpt2:5000/`
+    var url =server+`test`;
+    
+    // Builds the HTML Table out of myList json data from Ivy restful service.
+     function buildHtmlTable() {
+      console.log("go convert");
+      $.getJSON(url, function (data) {
+        //if (status === 200) {
+          //Do stuff with the JSON data
+          console.log(url);
+          myList = data;
+          //alert ("my list inside "+JSON.stringify(myList));
+               var columns = addAllColumnHeaders(myList);
+    
+               for (var i = 0 ; i < myList.length ; i++) {
+                   var row$ = $('<tr/>');
+                   for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
+                       var cellValue = myList[i][columns[colIndex]];
+    
+                       if (cellValue == null) { cellValue = ""; }
+    
+                       row$.append($('<td/>').html(cellValue));
+                   }
+                   $("#excelDataTable").append(row$);
+               }
+        $("#excelDataTable").dataTable();
+      });
+       
+     }
+    
+     // Adds a header row to the table and returns the set of columns.
+     // Need to do union of keys from all records as some records may not contain
+     // all records
+     function addAllColumnHeaders(myList)
+     {
+         var columnSet = [];
+         var headerTr$ = $('<tr/>');
+    
+         for (var i = 0 ; i < myList.length ; i++) {
+             var rowHash = myList[i];
+             for (var key in rowHash) {
+                 if ($.inArray(key, columnSet) == -1){
+                     columnSet.push(key);
+                     headerTr$.append($('<th/>').html(key));
+                 }
+             }
+         }
+         $("#excelDataTable").append(headerTr$);
+    
+         return columnSet;
+     }
+
+
+  hr
+  footer
+    p © DATALOGIC 2017 

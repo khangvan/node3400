@@ -8,11 +8,9 @@
     "bootstrap": "^3.3.7",
     "cmd-exec": "^0.1.0",
     "datatables-query": "^0.2.0",
-
-    "express":"3.0.5",
+    "express": "^3.0.5",
     "http": "0.0.0",
     "jade": "0.30.0",
-
     "mssql": "^3.3.0",
     "nodejs": "^0.0.0",
     "nodemailer": "^4.0.1",
