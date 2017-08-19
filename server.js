@@ -77,12 +77,16 @@ app.get('/lineshowpv', function(req,res) { res.render("app/lineshowPV")});
 app.get('/issue', function(req,res) { res.render("app/issue")});
 app.get('/changeover', function(req,res) { res.render("app/changeover")});
 app.get('/smtdowntime', function(req,res) { res.render("app/smtdowntime")})
+app.get('/testfailure', function(req,res) { res.render("app/testfailure")})
+
+
+app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")})
 
 app.get('/sample', function(req,res) { res.render("sample")});
-app.get('/template', function(req,res) { res.render("template")});
-app.get('/sql2pivot', function(req,res) { res.render("sql2pivot")});
-app.get('/smtboard', function(req,res) { res.render("smtboard")});
-app.get('/datatables', function(req,res) { res.render("datatables")});
+app.get('/template', function(req,res) { res.render("template/template")});
+app.get('/sql2pivot', function(req,res) { res.render("template/sql2pivot")});
+app.get('/smtboard', function(req,res) { res.render("template/smtboard")});
+app.get('/datatables', function(req,res) { res.render("template/datatables")});
 
 
 

@@ -1,0 +1,63 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    title DataTables example - Zero configuration
+    link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
+    //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
+    link(href='css/bootstrap.css', rel='stylesheet')
+    //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
+    link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
+    script(type='text/javascript', language='javascript', src='js/jquery-1.12.4.min.js')
+    //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
+    //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
+    script(type='text/javascript', language='javascript', src='js/jquery.dataTables.js')
+    //script(type='text/javascript', language='javascript', src='js/jquery.dataTables.min.js')
+    //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
+    script(type="text/javascript", src="js/d3.v4.min.js") 
+    
+    //- //DO FOR BUTTON Download
+    //- script(type="text/javascript", src="js/dataTables.buttons.min.js") 
+    //- script(type="text/javascript", src="js/jszip.min.js") 
+    //- script(type="text/javascript", src="js/pdfmake.min.js") 
+    //- script(type="text/javascript", src="js/vfs_fonts.js") 
+    //- script(type="text/javascript", src="js/buttons.html5.min.js") 
+    //DO RESIZE W
+    script(type="text/javascript", src="js/dataTables.pageResize.min.js") 
+    
+    
+     
+    script(type='text/javascript', language='javascript', src='js/url2id.js')
+    //- script.init(type='text/javascript').
+    script.
+      $(document).ready(function() {
+          refresh();
+
+      } );
+      
+       
+      function refresh() {
+      $('#testd3').empty();
+          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmacsdb/
+      select top 100 * from [acs ee].dbo.testlog 
+      where pass_fail ='F'
+      order by test_date_time desc 
+      `,'#testd3');
+      
+     
+      }
+      
+     
+      
+      
+      
+  body.wide.comments.example
+    button.btn.btn-primary(type="submit",onclick="refresh();") RefeshData
+   
+    table#testd3.display(cellspacing='0', width='100%')
+     
+    
+     
+  
+   
