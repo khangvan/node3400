@@ -82,6 +82,7 @@ app.get('/sample', function(req,res) { res.render("sample")});
 app.get('/template', function(req,res) { res.render("template")});
 app.get('/sql2pivot', function(req,res) { res.render("sql2pivot")});
 app.get('/smtboard', function(req,res) { res.render("smtboard")});
+app.get('/datatables', function(req,res) { res.render("datatables")});
 
 
 

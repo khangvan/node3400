@@ -2,18 +2,24 @@ doctype html
 html
  head
   title Khang Learn Jade
+  script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')
  body
   h1 Test function
   input(type="text", placeholder ="nhap thong tin")
  script(type="text/javascript", src="js/script.js")
+  
  script.
   //alert (data.name);
    alert(url);
    var newserial = logSerial();
    newserial.setInfo(1,2,3,4);
    newserial.log();
+   $('#1').click(function(){
+      alert ("go");
+       
+       });
   
- button(type="submit", ) nhan
+ button#1(type="submit", ) nhan
  
  h1 test here
  h2 go then to
