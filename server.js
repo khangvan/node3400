@@ -78,6 +78,9 @@ app.get('/issue', function(req,res) { res.render("app/issue")});
 app.get('/changeover', function(req,res) { res.render("app/changeover")});
 app.get('/smtdowntime', function(req,res) { res.render("app/smtdowntime")})
 app.get('/testfailure', function(req,res) { res.render("app/testfailure")})
+app.get('/yield', function(req,res) { res.render("app/yield")})
+app.get('/pnpc', function(req,res) { res.render("app/pnpc")})
+app.get('/repair', function(req,res) { res.render("app/repair")})
 
 
 app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")})
@@ -87,6 +90,7 @@ app.get('/template', function(req,res) { res.render("template/template")});
 app.get('/sql2pivot', function(req,res) { res.render("template/sql2pivot")});
 app.get('/smtboard', function(req,res) { res.render("template/smtboard")});
 app.get('/datatables', function(req,res) { res.render("template/datatables")});
+app.get('/slidebar', function(req,res) { res.render("template/slidebar")});
 
 
 
