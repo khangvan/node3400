@@ -57,6 +57,15 @@ html(lang='en')
                 | Xem dữ liệu output hàng giờ
               p
                 a.btn(href='show') View details »
+              ul#subjects
+                li
+                  a(href="testfailure") TEST FAILURE
+                  | : View test failure realtime
+                li
+                 a(href="yield") YIELD
+                 | : Weekly Yield Data
+               
+                 
             // /span
             .span4
               h2 INPUT-ASSY LINE
@@ -92,8 +101,32 @@ html(lang='en')
                 a.btn(href='smtdowntime') View details »
                 ul#subjects
                   li
-                    a(href="smt/targetmonitoring") SMT Target Monitoring
+                    a(href="smtmonitor") SMT Target Monitoring
                     | : Show target vs actual for 4 week data
+         .span12
+           .hero-unit
+             h1 VIETNAM MAINTENANCE AND REPAIR
+           .span4
+               h2 PCBA REPAIR
+               ul#subjects
+                li
+                 a(href="file://///vnmsrv601/DevelopSoftware/HC01-RepairData/Fact_Repair.application") Maintenance and Repair
+                 |: Cài đặt Program 
+                 br
+                 |Password default: 123
+                 li
+                  a(href="#", target="_blank") Nhập Data Web
+                  |: Nhập liệu trên WebApp
+               p
+          .span12
+            .hero-unit
+              h1 WAREHOUSE PROCESS
+            .span4
+                h2 PICK AND PACK 
+                :markdown
+                 - [PickPartVerify](http://vnmacsrpt2/vnapp/Warehouse/PickPartVerify.aspx) Kiểm tra pick hàng theo Transfer Order
+                 
+                
         
       hr
       footer
