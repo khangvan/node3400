@@ -1,0 +1,3 @@
+npm install -g http-server
+vo \\vnmsrv300\...
+http-server -p 5001 -d -i --cors
