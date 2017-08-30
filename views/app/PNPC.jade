@@ -1,0 +1,90 @@
+!!!5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title DATALOGIC-PRODUCTION MONITORING-DEMO
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='/css/bootstrap.css', rel='stylesheet')
+    style(type='text/css')
+      body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+      }
+      .sidebar-nav {
+      padding: 9px 0;
+      }
+    link(href='/css/bootstrap-responsive.css', rel='stylesheet')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', href='/ico/favicon.png')
+    
+    script(type='text/javascript', charset='utf8', src='js/jquery-1.12.4.min.js')
+body
+//top menu
+.navbar.navbar-inverse.navbar-fixed-top
+         .navbar-inner
+           .container-fluid
+             a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+               span.icon-bar
+               span.icon-bar
+               span.icon-bar
+             a.brand(href='') PRODUCTION MONITORING
+             .nav-collapse.collapse
+               //p.navbar-text.pull-right
+               //  | Logged in as
+               //  a.navbar-link(href='#') Username
+               ul.nav
+                 li.active
+                   a(href='/') HOME
+                 li
+                   a(href='show') SHOW
+                 li
+                   a(href='lineshow') LINE
+//top menu
+h1 RECORD SERIAL
+ .container-fluid
+  .row-fluid
+   .span2
+     select#ddlViewBy(onmousedown="this.value='';", onchange=`goNext(this,"serial");`, placeholder="Select Line", value="Select Line")
+      option(value='Matrix') Matrix
+      option(value='Matrix1') Matrix1
+      option(value='Matrix2') Matrix2
+      option(value='Matrix3') Matrix3
+      option(value='Matrix4') Matrix4
+   .span2
+     input(type="text", placeholder="Operator code", onkeydown=`goNext(this,"order");`)
+   .span2
+     input#order(type="text", placeholder="Production Order", onkeydown=`goNext(this,"model");`)
+   .span2
+        input#model(type="text", placeholder="Model", onkeydown=`goNext(this,"serial");`)
+   .span2
+     input#serial(type="text", placeholder="Serial")
+
+   .span2
+      a.btn.btn-primary.btn-large(onclick='goSaveData()') Save Data »
+ script.
+  var goSaveData = function() {
+   
+  alert ("go save");
+  
+  }
+  var goNext= function(ele, nextinput) {
+    if(event.keyCode == 13) {
+        //alert(ele.value);        
+        if (ele.value=="") {
+         alert("Please input info");
+         }
+        else {
+         document.getElementById(nextinput).focus();
+        }
+        
+      
+        
+    }
+  }
+  
+  
