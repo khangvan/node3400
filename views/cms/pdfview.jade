@@ -1,0 +1,368 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    title PDF viewport
+    link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
+    //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='/css/bootstrap-responsive.css', rel='stylesheet')
+    //link(href='/css/jumbotron.css', rel='stylesheet')
+    style(type='text/css')
+      #the-canvas {
+      border:1px solid black;
+       }
+    //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
+    link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
+    
+    script(type='text/javascript', language='javascript', src='js/jquery-1.12.4.min.js')
+    //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
+    //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
+    script(type='text/javascript', language='javascript', src='js/jquery.dataTables.js')
+    //script(type='text/javascript', language='javascript', src='js/jquery.dataTables.min.js')
+    //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
+    script(type="text/javascript", src="js/d3.v4.min.js") 
+
+    //script(type="text/javascript", src="js/dataTables.pageResize.min.js") 
+    
+    
+     
+    //script(type='text/javascript', language='javascript', src='js/url2id.js')
+    //- script.init(type='text/javascript').
+    //script(src='//mozilla.github.io/pdf.js/build/pdf.js')
+    script(type="text/javascript",src='js/pdf.js')
+         
+   
+  body.wide.comments.example
+    .navbar.navbar-inverse.navbar-fixed-top
+         .navbar-inner
+           .container-fluid
+             a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+               span.icon-bar
+               span.icon-bar
+               span.icon-bar
+             a.brand(href='') VIETNAM ENGINEERING DOCUMENT
+             .nav-collapse.collapse
+               //p.navbar-text.pull-right
+               //  | Logged in as
+               //  a.navbar-link(href='#') Username
+               ul.nav
+                 li.active
+                   a(href='/') GO HOME
+                 li
+                   a(href='show') MONITORING
+                 li
+                   a(href='lineshow') REPORTING
+   
+   .container-fluid
+     .span12
+        h2 ENGINEERING DOCUMENTATION PORTAL
+     .span12
+      table#tabled3
+     .span12
+      div
+        button#prev Previous
+        button#next Next
+        span
+          | Page: 
+          span#page_num
+          |  / 
+          span#page_count
+     .span12
+         canvas#the-canvas
+            
+   
+   
+     script
+       $(document).ready(function() {
+            refresh();
+           //- pullissue();
+           //let urlgo= `pdf/MS-0008-05-0004V-662353019-Post Assy_Rev B.pdf`;
+           //- let urlgo= `http://vnmacsrpt2:5001/General/MS-0090-09-0006V-Thu%20tuc%20MRB-xem%20xet%20va%20xu%20ly%20linh%20kien%20khong%20dat%20quy%20cach%20tu%20Incoming%20va%20Prod%20Line_Rev%20D.pdf`;
+           //- doLoadPDF(urlgo);
+       } );
+       
+       
+       
+       function buildHtmlTableaddCol(urld3, SharpWID) {
+       
+        //alert ("start buildHtmlTableRAW");
+        console.log('now d3');
+       
+       
+       
+         d3.json(urld3, function(error, data) {
+        //alert ('data is '+JSON.stringify(data));
+          var columnSet = [];
+           // var headerTr$ = $('<tr/>');
+           // var headerThead$ = $('</thead>');
+           for (var i = 0; i < data.length; i++) {
+            var rowHash = data[i];
+            for (var key in rowHash) {
+             if ($.inArray(key, columnSet) == -1) {
+              columnSet.push(key);
+       
+             }
+            }
+           }
+        console.log(columnSet);
+       
+        //console.log("d3 running w data", JSON.stringify(data));
+          function tabulate(data, columns) {
+           var table = d3.select(SharpWID)//.append('table')
+           var thead = table.append('thead')
+           var tfoot = table.append('tfoot')
+           var tbody = table.append('tbody');
+       
+           // append the header row
+           thead.append('tr')
+            .selectAll('th')
+            .data(columns).enter()
+            .append('th')
+            .text(function(column) {
+             return column;
+            });
+            // append the foot row
+            tfoot.append('tr')
+             .selectAll('th')
+             .data(columns).enter()
+             .append('th')
+             .text(function(column) {
+              return column;
+             });
+       
+           // create a row for each object in the data
+           var rows = tbody.selectAll('tr')
+            .data(data)
+            .enter()
+            .append('tr');
+       
+           // create a cell in each row for each column
+           var cells = rows.selectAll('td')
+            .data(function(row) {
+             return columns.map(function(column) {
+              return {
+               column: column,
+               value: row[column]
+              };
+             });
+            })
+            .enter()
+            .append('td')
+            .text(function(d) {
+             return d.value;
+            });
+       
+           return table;
+          }
+        console.log(columnSet);
+          // render the table(s)
+          tabulate(data, columnSet);
+          var table=$(SharpWID).DataTable({
+               
+               "columnDefs": [ 
+               { 
+                  "render": function ( data, type, row ) {
+                       //return '<a href="' + row[4] + '">' + row[4] + '</a>'; 
+                       //return '<a href="http:////vnmacsrpt2:5001' + row[4] + '"> ViewDoc </a>'; 
+                       //- let a =`"http:\\\\vnmacsrpt2:5001` + row[4] +`"`;
+                       //- a=a.replace(/ /g, "%20");
+                       //- console.log(a);
+                       //- let b = `<button onclick=\`doLoadPDF(${a});\`>Click me</button>`
+                       //- console.log(b);
+                       //- return b;
+                       return "<button>View</button>"
+                   },
+                   "targets": 1
+                 
+                 }
+              
+              
+               ]
+           }
+          );
+          $(SharpWID+' tbody').on( 'click', 'button', function () {
+              var data = table.row( $(this).parents('tr') ).data();
+              let a =`http:////vnmacsrpt2:5001` + data[1] +``;
+              //let a =`"\\` + data[4] +`"`;
+              //a=a.replace(/ /g, "%20");
+              //alert (a);
+              if (aContainsB(a,'pdf') || aContainsB(a,'PDF'))
+               {
+               doLoadPDF((a));
+               //alert( data[0] +"'s salary is: "+ data[ 4 ] );
+               console.log((a));
+               }
+              else {
+               alert ("This not PDF so file will be downloaded");
+               window.open(a, '_blank')
+              }
+          
+             
+          } );
+
+         });
+       }    
+       function aContainsB (a, b) {
+       return a.indexOf(b) >= 0;
+       }
+        
+       function refresh() 
+       {
+       buildHtmlTableaddCol(`http://vnmacsrpt2:5000/sql/vnmacsrpt2/select * from VNMMDATA..vMEMaster
+       `,'#tabled3');
+       }
+       // exec VNMMDATA.dbo.[amevn_scanAllFileQuickly]
+       //var url =`pdf/MS-0008-05-0004V-662353019-Post Assy_Rev B.pdf`;
+       
+       function doLoadPDF(url){
+       
+         console.log("go",url);
+         
+         // If absolute URL from the remote server is provided, configure the CORS
+         // header on that server.
+         //var url = '//cdn.mozilla.net/pdfjs/tracemonkey.pdf';
+         //var url =`pdf/MS-0008-05-0004V-662353019-Post Assy_Rev B.pdf`;
+   
+         // The workerSrc property shall be specified.
+         //PDFJS.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+         PDFJS.workerSrc = 'js/pdf.worker.js';
+   
+         var pdfDoc = null,
+             pageNum = 1,
+             pageRendering = false,
+             pageNumPending = null,
+             scale = 1.7,
+             canvas = document.getElementById('the-canvas'),
+             ctx = canvas.getContext('2d');
+   
+         /**
+          * Get page info from document, resize canvas accordingly, and render page.
+          * @param num Page number.
+          */
+         function renderPage(num) {
+           pageRendering = true;
+           // Using promise to fetch the page
+           pdfDoc.getPage(num).then(function(page) {
+             var viewport = page.getViewport(scale);
+             canvas.height = viewport.height;
+             canvas.width = viewport.width;
+   
+             // Render PDF page into canvas context
+             var renderContext = {
+               canvasContext: ctx,
+               viewport: viewport
+             };
+             var renderTask = page.render(renderContext);
+   
+             // Wait for rendering to finish
+             renderTask.promise.then(function() {
+               pageRendering = false;
+               if (pageNumPending !== null) {
+                 // New page rendering is pending
+                 renderPage(pageNumPending);
+                 pageNumPending = null;
+               }
+             });
+           });
+   
+           // Update page counters
+           document.getElementById('page_num').textContent = pageNum;
+         }
+   
+         /**
+          * If another page rendering in progress, waits until the rendering is
+          * finised. Otherwise, executes rendering immediately.
+          */
+         function queueRenderPage(num) {
+           if (pageRendering) {
+             pageNumPending = num;
+           } else {
+             renderPage(num);
+           }
+         }
+   
+         /**
+          * Displays previous page.
+          */
+         function onPrevPage() {
+           if (pageNum <= 1) {
+             return;
+           }
+           pageNum--;
+           queueRenderPage(pageNum);
+         }
+         document.getElementById('prev').addEventListener('click', onPrevPage);
+   
+         /**
+          * Displays next page.
+          */
+         function onNextPage() {
+           if (pageNum >= pdfDoc.numPages) {
+             return;
+           }
+           pageNum++;
+           queueRenderPage(pageNum);
+         }
+         document.getElementById('next').addEventListener('click', onNextPage);
+   
+         /**
+          * Asynchronously downloads PDF.
+          */
+         //-  var datauri = (url);
+         //-  var BASE64_MARKER = ';base64,';
+         //- 
+         //- function convertDataURIToBinary(dataURI) {
+         //- console.log("start",dataURI);
+         //- //dataURI= encodeURI(dataURI);
+         //- //console.log("startURI",dataURI);
+         //-   var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+         //-   var base64 = dataURI.substring(base64Index);
+         //-   var raw = window.atob(base64);
+         //-   var rawLength = raw.length;
+         //-   var array = new Uint8Array(new ArrayBuffer(rawLength));
+         //- 
+         //-   for(var i = 0; i < rawLength; i++) {
+         //-     array[i] = raw.charCodeAt(i);
+         //-   }
+         //-   console.log("rs",dataURI);
+         //-   return array;
+         //- }
+         //var pdfAsDataUri = "data:application/pdf;base64,JVBERi0xLjUK..."; // shortened
+         //var pdfAsArray = convertDataURIToBinary(datauri);
+         //PDFJS.getDocument(pdfAsArray)
+         function base64ToUint8Array(base64) {
+                      try {
+                 window.atob(base64);
+             } catch(e) {
+                 // something failed
+                 console.log(e);
+                 // if you want to be specific and only catch the error which means
+                 // the base 64 was invalid, then check for 'e.code === 5'.
+                 // (because 'DOMException.INVALID_CHARACTER_ERR === 5')
+                 var f = Base64.decode(base64);
+                 console.log(f);
+             }
+         
+           var raw = atob(base64);
+           var uint8Array = new Uint8Array(raw.length);
+           for (var i = 0; i < raw.length; i++) {
+             uint8Array[i] = raw.charCodeAt(i);
+           }
+           return uint8Array;
+          }
+          
+         PDFJS.getDocument(url).then(function(pdfDoc_) {
+          console.log("get",url);
+           pdfDoc = pdfDoc_;
+           document.getElementById('page_count').textContent = pdfDoc.numPages;
+         
+           // Initial/first page rendering
+           renderPage(pageNum);
+         });
+        
+       }
+    
+   
+  

@@ -1,6 +1,6 @@
 doctype html
 html
- head
+  head
     meta(http-equiv='Content-type', content='text/html; charset=utf-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
     title DataTables example - Zero configuration
@@ -9,7 +9,6 @@ html
     link(href='css/bootstrap.css', rel='stylesheet')
     //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
     link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
-    
     script(type='text/javascript', language='javascript', src='js/jquery-1.12.4.min.js')
     //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
     //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
@@ -39,64 +38,24 @@ html
       
        
       function refresh() {
-      
-          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmacsdb/
-      select top 1000 * from [acs ee].dbo.testlog 
-      where pass_fail ='F'
-      and test_date_time >= convert(date,getdate())
-      order by test_date_time desc 
-      `,'#testd3');
-      
+      $('#main').empty();
+          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmacsrpt2/
+          select top 1000 * from rstaging.dbo.yielddata3
+           order by  eventweek desc
+      `,'#main');
       
      
       }
-      function serialtrack() {
-            var q =`http://vnmacsrpt2:5000/sql/vnmacsdb/select * from [acs ee].dbo.subtestlog
-            where acs_serial = '`+$('#sn').val()+`'
-            and Pass_Fail ='F'
-            `;
-        console.log(q);
-               buildHtmlTableD3(q,'#serialtrack');
-      
-     
-      }
-      
-   
       
      
       
       
       
   body.wide.comments.example
-   .navbar.navbar-inverse.navbar-fixed-top
-           .navbar-inner
-             .container-fluid
-               a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-                 span.icon-bar
-                 span.icon-bar
-                 span.icon-bar
-               a.brand(href='') PRODUCTION MONITORING
-               .nav-collapse.collapse
-                 //p.navbar-text.pull-right
-                 //  | Logged in as
-                 //  a.navbar-link(href='#') Username
-                 ul.nav
-                   li.active
-                     a(href='/') HOME
-                   li
-                     a(href='show') SHOW
-                   li
-                     a(href='lineshow') LINE
-   .container-fluid
-     .row-fluid
-       p Tracking
-     .row-fluid
-       .span12
-         input#sn(type="text", placeholder="serial")
-         button(type="submit", onclick ="serialtrack();") View FAIL Data
-         table#serialtrack.display(cellspacing='0', width='100%')
-         table#testd3.display(cellspacing='0', width='100%')
-         table#testd4.display(cellspacing='0', width='100%')
+    button.btn.btn-primary(type="submit",onclick="refresh();") RefeshData
+   
+    table#main.display(cellspacing='0', width='100%')
+     table#subtest.display(cellspacing='0', width='100%')
      
     
      

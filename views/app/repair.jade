@@ -1,0 +1,149 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    title DataTables example - Zero configuration
+    link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
+    //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
+    link(href='css/bootstrap.css', rel='stylesheet')
+    //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
+    link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
+    
+    script(type='text/javascript', language='javascript', src='js/jquery-1.12.4.min.js')
+    //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
+    //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
+    script(type='text/javascript', language='javascript', src='js/jquery.dataTables.js')
+    //script(type='text/javascript', language='javascript', src='js/jquery.dataTables.min.js')
+    //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
+    script(type="text/javascript", src="js/d3.v4.min.js") 
+
+    script(type="text/javascript", src="js/dataTables.pageResize.min.js") 
+    
+    
+     
+    script(type='text/javascript', language='javascript', src='js/url2id.js')
+    //- script.init(type='text/javascript').
+    script.
+      $(document).ready(function() {
+          refresh();
+          pullissue();
+          
+      } );
+          function pullissue(){
+          buildDropDownList(`http://vnmacsrpt2:5000/sql/vnmsrv601/
+      select distinct ProductModel from repair.dbo.product
+      `,'#issue','ProductModel');
+          }
+   
+       
+      function refresh() {
+      
+          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmacsdb/
+      select top 1000 * from [acs ee].dbo.testlog 
+      where pass_fail ='F'
+      and test_date_time >= convert(date,getdate())
+      order by test_date_time desc 
+      `,'#testd3');
+      
+      
+     
+      }
+      function serialtrack() {
+            var q =`http://vnmacsrpt2:5000/sql/vnmacsdb/select * from [acs ee].dbo.subtestlog
+            where acs_serial = '`+$('#sn').val()+`'
+            and Pass_Fail ='F'
+            `;
+        console.log(q);
+               buildHtmlTableD3(q,'#serialtrack');
+      
+     
+      }
+      
+   
+      
+     
+      
+      
+      
+  body.wide.comments.example
+   //- .navbar.navbar-inverse.navbar-fixed-top
+   //-         .navbar-inner
+   //-           .container-fluid
+   //-             a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+   //-               span.icon-bar
+   //-               span.icon-bar
+   //-               span.icon-bar
+   //-             a.brand(href='') PRODUCTION MONITORING
+   //-             .nav-collapse.collapse
+   //-               //p.navbar-text.pull-right
+   //-               //  | Logged in as
+   //-               //  a.navbar-link(href='#') Username
+   //-               ul.nav
+   //-                 li.active
+   //-                   a(href='/') HOME
+   //-                 li
+   //-                   a(href='show') SHOW
+   //-                 li
+   //-                   a(href='lineshow') LINE
+   .container-fluid
+    .row-fluid
+     .span2
+       select#issue
+     .span2
+       select#ddlViewBy(onmousedown="this.value='';", onchange=`goNext(this,"serial");`, placeholder="Select Line", value="Select Line")
+        option(value='Select Group') Select Group
+        option(value='Matrix') Matrix
+        option(value='Matrix2') Matrix2
+        option(value='Matrix3') Matrix3
+        option(value='Matrix4') Matrix4
+       select#ddlViewBy(onmousedown="this.value='';", onchange=`goNext(this,"serial");`, placeholder="Select Line", value="Select Line")
+        option(value='Select 4M') Select 4M
+        option(value='Machine') Machine
+        option(value='Material') Material
+        option(value='Method') Method
+        option(value='ManPower') ManPower
+     .span2
+       input(type="text", placeholder="Operator code.", onkeydown=`goNext(this,"order");`)
+     .span2
+       input#order(type="text", placeholder="Production Order", onkeydown=`goNext(this,"model");`)
+     .span2
+          input#model(type="text", placeholder="Model", onkeydown=`goNext(this,"serial");`)
+     .span2
+       input#serial(type="text", placeholder="Serial")
+     .span2
+        a.btn.btn-primary.btn-large(onclick='goSaveData()') Save Data »
+   .row-fluid
+     p Tracking
+   .row-fluid
+     .span12
+       input#sn(type="text", placeholder="serial")
+       button(type="submit", onclick ="serialtrack();") View FAIL Data
+       table#serialtrack.display(cellspacing='0', width='100%')
+       table#testd3.display(cellspacing='0', width='100%')
+       table#testd4.display(cellspacing='0', width='100%')
+   script.
+    var goSaveData = function() {
+     
+    alert ("Saving Data & Then Delivery data in couple minute");
+    
+    }
+    var goNext= function(ele, nextinput) {
+      if(event.keyCode == 13) {
+          //alert(ele.value);        
+          if (ele.value=="") {
+           alert("Please input info");
+           }
+          else {
+           document.getElementById(nextinput).focus();
+          }
+          
+        
+          
+      }
+    }
+   
+   
+    
+   
+  

@@ -1,0 +1,12 @@
+{
+  "connections": [
+    {
+      "name": "VNMSRV601.VNMMData",
+      "server": "vnmsrv601\\Siplace_2008r2ex",
+      "database": "VNMMData",
+      "port": 1433,
+      "user": "reports",
+      "password": "reports"
+    }
+  ]
+}

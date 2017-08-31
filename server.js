@@ -81,6 +81,9 @@ app.get('/testfailure', function(req,res) { res.render("app/testfailure")})
 app.get('/yield', function(req,res) { res.render("app/yield")})
 app.get('/pnpc', function(req,res) { res.render("app/pnpc")})
 app.get('/repair', function(req,res) { res.render("app/repair")})
+app.get('/pamonitor', function(req,res) { res.render("app/pamonitor")})
+
+app.get('/pdfview', function(req,res) { res.render("cms/pdfview")})
 
 
 app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")})

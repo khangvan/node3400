@@ -1,0 +1,137 @@
+!!!5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title DATALOGIC VIETNAM-PMS
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='/css/bootstrap.css', rel='stylesheet')
+    style(type='text/css')
+      body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+      }
+      .sidebar-nav {
+      padding: 9px 0;
+      }
+    link(href='/css/bootstrap-responsive.css', rel='stylesheet')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', href='/ico/favicon.png')
+    
+  body
+    
+//top menu
+.navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand(href='') HOME PAGE
+          .nav-collapse.collapse
+            //p.navbar-text.pull-right
+            //  | Logged in as
+            //  a.navbar-link(href='#') Username
+            ul.nav
+              li.active
+                a(href='/') HOME
+              li
+                a(href='show') SHOW
+              li
+                a(href='lineshow') LINE
+
+.container-fluid
+      
+        .span12
+          .hero-unit
+            h1 VIETNAM MONITORING SYSTEM
+          .row-fluid
+            .span4
+              h2 ASSEMBLY OUTPUT
+              p
+                | Xem dữ liệu output hàng giờ
+              p
+                a.btn(href='show') View details »
+              ul#subjects
+                li
+                  a(href="testfailure") TEST FAILURE
+                  | : View test failure realtime
+                li
+                 a(href="yield") YIELD
+                 | : Weekly Yield Data
+               
+                 
+            // /span
+            .span4
+              h2 INPUT-ASSY LINE
+              p
+                | To assembly line, in case no data warehouse, we need to input manually for serial mode.
+                
+              p
+                a.btn(href='lineinput') View details »
+            .span4
+              h2 OUTPUT EA. LINE
+              p
+                | To each line need to view realtime output data, go this report to see daily output vs target.
+              p
+                a.btn(href='lineshow') View details »
+           .row-fluid
+             .span4
+               h2 REPORT ISSUE
+               p
+                | To quick report issue, use this input form
+               p
+               a.btn(href='issue') View details »
+             .span4
+               h2 CHANGE OVER TIME
+               p
+                | Change Over Time for each change Machine, Recipe, Board
+               p
+               a.btn(href='changeover') View details »
+              .span4
+                h2 SMT Downtime
+                p
+                 | SMT Downtime
+                p
+                a.btn(href='smtdowntime') View details »
+                ul#subjects
+                  li
+                    a(href="smtmonitor") SMT Target Monitoring
+                    | : Show target vs actual for 4 week data
+         .span12
+           .hero-unit
+             h1 ENGINEERING DOCUMENTATION
+           .span4
+               h2 DOCUMENTATION
+               :markdown
+                - [QuickDock](/pdfview)
+           .span4
+               h2 PCBA REPAIR
+               ul#subjects
+                li
+                 a(href="file://///vnmsrv601/DevelopSoftware/HC01-RepairData/Fact_Repair.application") Maintenance and Repair
+                 |: Cài đặt Program 
+                 br
+                 |Password default: 123
+                 li
+                  a(href="#", target="_blank") Nhập Data Web
+                  |: Nhập liệu trên WebApp    
+          .span12
+            .hero-unit
+              h1 WAREHOUSE PROCESS
+            .span4
+                h2 PICK AND PACK 
+                :markdown
+                 - [PickPartVerify](http://vnmacsrpt2/vnapp/Warehouse/PickPartVerify.aspx) Kiểm tra pick hàng theo Transfer Order
+                 
+                
+        
+      hr
+      footer
+        
+        p © DATALOGIC 2017
