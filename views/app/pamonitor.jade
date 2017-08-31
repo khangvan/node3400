@@ -1,6 +1,6 @@
 doctype html
 html
-  head
+ head
     meta(http-equiv='Content-type', content='text/html; charset=utf-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
     title DataTables example - Zero configuration
@@ -9,6 +9,14 @@ html
     link(href='css/bootstrap.css', rel='stylesheet')
     //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
     link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
+    style(type='text/css')
+      body {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      }
+      .sidebar-nav {
+      padding: 9px 0;
+      }
     script(type='text/javascript', language='javascript', src='js/jquery-1.12.4.min.js')
     //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
     //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
@@ -38,24 +46,66 @@ html
       
        
       function refresh() {
-      $('#testd3').empty();
-          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/smta/
-      amevn_CycleTime
+      
+          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmsrv601/
+      exec [FinalAssy]..[amevn_PAtrack]
       `,'#testd3');
       
-       
-
+      
      
       }
+      
+      function serialtrack() {
+         let serial  = $('#sn').val();
+         alert (serial);
+         var q =`http://vnmacsrpt2:5000/sql/vnmsrv601/exec [FinalAssy]..amevn_PATrackSerial '${serial}'
+         `;
+        console.log(q);
+               buildHtmlTableD3(q,'#serialtrack');
+      
+     
+      }
+      
+   
       
      
       
       
       
   body.wide.comments.example
-    button.btn.btn-primary(type="submit",onclick="refresh();") RefeshData
-   
-    table#testd3.display(cellspacing='0', width='100%')
+   .navbar.navbar-inverse.navbar-fixed-top
+           .navbar-inner
+             .container-fluid
+               a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                 span.icon-bar
+                 span.icon-bar
+                 span.icon-bar
+               a.brand(href='') POST ASSY
+               .nav-collapse.collapse
+                 //p.navbar-text.pull-right
+                 //  | Logged in as
+                 //  a.navbar-link(href='#') Username
+                 ul.nav
+                   li.active
+                     a(href='/') HOME
+                   li
+                     a(href='show') SHOW
+                   li
+                     a(href='lineshow') LINE
+   .container-fluid
+     .row-fluid
+        h2 TRACKING
+     .row-fluid
+       .span12
+         input#sn(type="text", placeholder="serial")
+         button(type="submit", onclick ="serialtrack();") Track OperatorCode by Serial
+     .row-fluid
+       .span12
+         table#serialtrack.display(cellspacing='0', width='100%')
+      .row-fluid
+        .span12
+          table#testd3.display(cellspacing='0', width='100%')
+          table#testd4.display(cellspacing='0', width='100%')
      
     
      
