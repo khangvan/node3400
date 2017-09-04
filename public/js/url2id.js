@@ -55,6 +55,32 @@ function buildHtmlTable(url, SharpWID) {
 
 function buildHtmlTableD3(urld3, SharpWID) {
 
+ if ( $.fn.DataTable.isDataTable(SharpWID) ) {
+  $(SharpWID).empty();
+  console.log("It's exist datatable, need detroy it");
+   $(SharpWID).DataTable().destroy();
+
+$(SharpWID).empty();
+console.log("empty");
+ }
+
+
+
+
+ //return;
+ // ... skipped ...
+
+ // $(SharpWID).dataTable({
+ //       "autoWidth":false
+ //     , "info":false
+ //     , "JQueryUI":true
+ //     , "ordering":true
+ //     , "paging":false
+ //     , "scrollY":"500px"
+ //     , "scrollCollapse":true
+ // });
+
+
 console.log('now d3');
 
 
@@ -73,7 +99,7 @@ console.log('now d3');
      }
     }
    }
-console.log(columnSet);
+//console.log(columnSet);
 
 console.log("d3 running w data", JSON.stringify(data));
   function tabulate(data, columns) {
@@ -125,8 +151,15 @@ console.log("d3 running w data", JSON.stringify(data));
   }
 console.log(columnSet);
   // render the table(s)
+
   tabulate(data, columnSet);
-  $(SharpWID).DataTable();
+
+
+
+  $(SharpWID).dataTable();
+
+
+
 
 
 

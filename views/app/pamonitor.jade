@@ -25,6 +25,15 @@ html
     //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
     script(type="text/javascript", src="js/d3.v4.min.js") 
     
+    link(rel='stylesheet', type='text/css', media='screen', href='css/bootstrap.min.css')
+    link(rel='stylesheet', href='css/font-awesome.min.css')
+    link(href='css/prettify-1.0.css', rel='stylesheet')
+    link(href='css/base.css', rel='stylesheet')
+    link(href='css/bootstrap-datetimepicker.css', rel='stylesheet')
+    script(type="text/javascript", src="js/moment-with-locales.js")
+    script(type="text/javascript", src="js/bootstrap-datetimepicker.js")
+    
+    
     //- //DO FOR BUTTON Download
     //- script(type="text/javascript", src="js/dataTables.buttons.min.js") 
     //- script(type="text/javascript", src="js/jszip.min.js") 
@@ -40,6 +49,7 @@ html
     //- script.init(type='text/javascript').
     script.
       $(document).ready(function() {
+         //$('.datetimepicker').datetimepicker();
           refresh();
 
       } );
@@ -47,9 +57,10 @@ html
        
       function refresh() {
       
-          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmsrv601/
+       buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmsrv601/
       exec [FinalAssy]..[amevn_PAtrack]
       `,'#testd3');
+      
       
       
      
@@ -63,6 +74,16 @@ html
         console.log(q);
                buildHtmlTableD3(q,'#serialtrack');
       
+     
+      }
+      
+      function getbyDemand() {
+         let start  = $('#datetimepicker1').val().replace(/[/]/g,'-');
+         let end  = $('#datetimepicker2').val().replace(/[/]/g,'-');
+         //alert (start);
+         
+         let table = buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmsrv601/exec [FinalAssy]..[amevn_PAtrack] '${start}','${end}' `,'#testd3');
+         
      
       }
       
@@ -98,10 +119,26 @@ html
      .row-fluid
        .span12
          input#sn(type="text", placeholder="serial")
-         button(type="submit", onclick ="serialtrack();") Track OperatorCode by Serial
+         button.btn.btn-primary(type="submit",onclick ="serialtrack();") Track OperatorCode by Serial
+         
      .row-fluid
        .span12
          table#serialtrack.display(cellspacing='0', width='100%')
+     .row-fluid
+       .span12
+        .col-sm-3
+           input#datetimepicker1.form-control(type='text', placeholder="From")
+        .col-sm-3
+           input#datetimepicker2.form-control(type='text', placeholder="To")
+        .col-sm-4
+           button.btn.btn-primary(type="submit", onclick="getbyDemand();") Pull Output by Demand
+       script(type='text/javascript').
+        $(function () {
+        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker2').datetimepicker();
+        
+        });
+        
       .row-fluid
         .span12
           table#testd3.display(cellspacing='0', width='100%')
