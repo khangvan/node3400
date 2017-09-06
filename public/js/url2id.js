@@ -253,11 +253,35 @@ function buildHtmlTableRAW(urld3, SharpWID) {
 }
 
 
+function buildDropDownListSimple(urld3, SharpWID) {
+  
+  let text = "text";
+  let val = "val"
+  
+  // alert ("start Drop dowwn list ");
+  // console.log('now d3 buildDropDownList');
+  $.getJSON(urld3, function(json){
+  $(SharpWID).empty();
+  $(SharpWID).append($('<option>').text("Select"));
+  $.each(json, function(i, obj){
+          $(SharpWID).append($('<option>').text(obj.text).attr('value', obj.val));
+  });
+})
+}
 
 function buildDropDownList(urld3, SharpWID, getname) {
 
+// let text = "text";
+// let val = "val"
+
 alert ("start buildDropDownList");
 console.log('now d3 buildDropDownList');
+
+// $(SharpWID).empty();
+// $(SharpWID).append($('<option>').text("Select"));
+// $.each(json, function(i, obj){
+//         $(SharpWID).append($('<option>').text(obj.text).attr('value', obj.val));
+// });
 
 
 

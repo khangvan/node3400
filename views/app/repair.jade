@@ -9,7 +9,14 @@ html
     link(href='css/bootstrap.css', rel='stylesheet')
     //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
     link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
-    
+    style(type='text/css')
+     body {
+     padding-top: 60px;
+     padding-bottom: 40px;
+     }
+     .sidebar-nav {
+     padding: 9px 0;
+     }
     script(type='text/javascript', language='javascript', src='js/jquery-1.12.4.min.js')
     //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
     //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
@@ -25,67 +32,62 @@ html
     script(type='text/javascript', language='javascript', src='js/url2id.js')
     //- script.init(type='text/javascript').
     script.
-      $(document).ready(function() {
-          refresh();
-          pullissue();
-          
-      } );
-          function pullissue(){
-          buildDropDownList(`http://vnmacsrpt2:5000/sql/vnmsrv601/
-      select distinct ProductModel from repair.dbo.product
-      `,'#issue','ProductModel');
-          }
-   
-       
-      function refresh() {
-      
-          buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmacsdb/
-      select top 1000 * from [acs ee].dbo.testlog 
-      where pass_fail ='F'
-      and test_date_time >= convert(date,getdate())
-      order by test_date_time desc 
-      `,'#testd3');
-      
-      
-     
+      $(document).ready(function () {
+        refresh();
+        pullissue();
+
+      });
+
+      function pullissue() {
+        buildDropDownListSimple(`http://vnmacsrpt2:5000/sql/vnmsrv601/
+      select top 10000  row_number() over(order by ProductModel ) val , ProductModel text from repair.dbo.product
+      `, '#issue');
       }
+
+
+      function refresh() {
+
+        //-     buildHtmlTableD3(`http://vnmacsrpt2:5000/sql/vnmacsdb/
+        //- select top 1000 * from [acs ee].dbo.testlog 
+        //- where pass_fail ='F'
+        //- and test_date_time >= convert(date,getdate())
+        //- order by test_date_time desc 
+        //- `,'#testd3');
+
+
+
+      }
+
       function serialtrack() {
-            var q =`http://vnmacsrpt2:5000/sql/vnmacsdb/select * from [acs ee].dbo.subtestlog
-            where acs_serial = '`+$('#sn').val()+`'
+        var q = `http://vnmacsrpt2:5000/sql/vnmacsdb/select * from [acs ee].dbo.subtestlog
+            where acs_serial = '` + $('#sn').val() + `'
             and Pass_Fail ='F'
             `;
         console.log(q);
-               buildHtmlTableD3(q,'#serialtrack');
-      
-     
+        buildHtmlTableD3(q, '#serialtrack');
+
+
       }
-      
-   
-      
-     
-      
-      
-      
   body.wide.comments.example
-   //- .navbar.navbar-inverse.navbar-fixed-top
-   //-         .navbar-inner
-   //-           .container-fluid
-   //-             a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-   //-               span.icon-bar
-   //-               span.icon-bar
-   //-               span.icon-bar
-   //-             a.brand(href='') PRODUCTION MONITORING
-   //-             .nav-collapse.collapse
-   //-               //p.navbar-text.pull-right
-   //-               //  | Logged in as
-   //-               //  a.navbar-link(href='#') Username
-   //-               ul.nav
-   //-                 li.active
-   //-                   a(href='/') HOME
-   //-                 li
-   //-                   a(href='show') SHOW
-   //-                 li
-   //-                   a(href='lineshow') LINE
+   .navbar.navbar-inverse.navbar-fixed-top
+           .navbar-inner
+             .container-fluid
+               a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                 span.icon-bar
+                 span.icon-bar
+                 span.icon-bar
+               a.brand(href='') PCBA & ASSY REPAIR LOG
+               .nav-collapse.collapse
+                 //p.navbar-text.pull-right
+                 //  | Logged in as
+                 //  a.navbar-link(href='#') Username
+                 ul.nav
+                   li.active
+                     a(href='/') HOME
+                   li
+                     a(href='show') SHOW
+                   li
+                     a(href='lineshow') LINE
    .container-fluid
     .row-fluid
      .span2
