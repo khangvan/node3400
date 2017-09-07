@@ -86,6 +86,7 @@ app.get('/pamonitor', function(req,res) { res.render("app/pamonitor")})
 app.get('/pdfview', function(req,res) { res.render("cms/pdfview")})
 
 
+app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")})
 app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")})
 
 app.get('/sample', function(req,res) { res.render("sample")});
@@ -763,7 +764,7 @@ if (ismysql == false) { //mssql
 
 
 // Jade
-app.set("view engine","jade");
+// app.set("view engine","jade");
 //app.use(express.static(__dirname + '/'));
  //app.use(express.static(__dirname + '/public'));
 //app.use('/static', express.static(path.join(__dirname, 'public')))
