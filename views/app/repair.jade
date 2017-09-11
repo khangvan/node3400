@@ -7,6 +7,7 @@ html
     link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
     //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
     link(href='css/bootstrap.css', rel='stylesheet')
+    
     //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
     link(rel='stylesheet', type='text/css', href='css/jquery.dataTables.min.css')
     style(type='text/css')
@@ -27,7 +28,11 @@ html
 
     script(type="text/javascript", src="js/dataTables.pageResize.min.js") 
     
-    
+    link(href='css/select2.min.css', rel='stylesheet')
+    script(src='js/select2.min.js')
+
+
+
      
     script(type='text/javascript', language='javascript', src='js/url2id.js')
     //- script.init(type='text/javascript').
@@ -35,13 +40,15 @@ html
       $(document).ready(function () {
         refresh();
         pullissue();
+        $('#issue2').select2({placeholder :"go"});
 
       });
 
       function pullissue() {
-        buildDropDownListSimple(`http://vnmacsrpt2:5000/sql/vnmsrv601/
-      select top 10000  row_number() over(order by ProductModel ) val , ProductModel text from repair.dbo.product
-      `, '#issue');
+        buildDropDownListSelect2(`http://vnmacsrpt2:5000/sql/vnmsrv601/
+      repair..amevn_getProduct
+      `, '#issue', 'Chọn Model bên dưới');
+        
       }
 
 
@@ -58,14 +65,20 @@ html
 
       }
 
-      function serialtrack() {
+      function serialtrack(idfrom, idto) {
+        //- var q = `http://vnmacsrpt2:5000/sql/vnmacsdb/select * from [acs ee].dbo.subtestlog
+        //-     where acs_serial = '` + $('#sn').val() + `'
+        //-     and Pass_Fail ='F'
+        //-     `;
+        //- console.log(q);
+        //- buildHtmlTableD3(q, '#serialtrack');
+
         var q = `http://vnmacsrpt2:5000/sql/vnmacsdb/select * from [acs ee].dbo.subtestlog
             where acs_serial = '` + $('#sn').val() + `'
             and Pass_Fail ='F'
             `;
         console.log(q);
         buildHtmlTableD3(q, '#serialtrack');
-
 
       }
   body.wide.comments.example
@@ -90,9 +103,12 @@ html
                      a(href='lineshow') LINE
    .container-fluid
     .row-fluid
-     .span2
+     .span12
        select#issue
-     .span2
+   .container-fluid
+    .row-fluid
+      .span12
+       
        select#ddlViewBy(onmousedown="this.value='';", onchange=`goNext(this,"serial");`, placeholder="Select Line", value="Select Line")
         option(value='Select Group') Select Group
         option(value='Matrix') Matrix
@@ -105,6 +121,7 @@ html
         option(value='Material') Material
         option(value='Method') Method
         option(value='ManPower') ManPower
+    .row-fluid
      .span2
        input(type="text", placeholder="Operator code.", onkeydown=`goNext(this,"order");`)
      .span2
@@ -120,7 +137,7 @@ html
    .row-fluid
      .span12
        input#sn(type="text", placeholder="serial")
-       button(type="submit", onclick ="serialtrack();") View FAIL Data
+       a.btn.btn-primary.btn-large(type="submit", onclick =`serialtrack('#sn','#serialtrack');`) View FAIL Data
        table#serialtrack.display(cellspacing='0', width='100%')
        table#testd3.display(cellspacing='0', width='100%')
        table#testd4.display(cellspacing='0', width='100%')
@@ -144,6 +161,8 @@ html
           
       }
     }
+ 
+
    
    
     
