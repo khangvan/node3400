@@ -269,6 +269,22 @@ function buildDropDownListSimple(urld3, SharpWID) {
 })
 }
 
+function buildDropDownListSelect2(urld3, SharpWID, strHolder) {
+  
+  let text = "text";
+  let val = "val"
+  
+  $.getJSON(urld3, function(json){
+  $(SharpWID).empty();
+  $(SharpWID).append($('<option>').text(strHolder));
+  $.each(json, function(i, obj){
+          $(SharpWID).append($('<option>').text(obj.text).attr('value', obj.val));
+  });
+
+})
+  $(SharpWID).select2({});
+}
+
 function buildDropDownList(urld3, SharpWID, getname) {
 
 // let text = "text";
