@@ -46,6 +46,9 @@ app.configure('development', function(){
 app.get('/', function(req,res) {
   res.render("main");
 });
+app.get('/welcome', function(req,res) {
+    res.render("main3");
+  });
 
 //var express = require('express');
 //var app = express();
