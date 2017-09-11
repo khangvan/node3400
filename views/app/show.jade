@@ -121,9 +121,15 @@ select#ddlViewBy(onmousedown="this.value='';", onchange='jsFunction(this.value);
   option(value='5') Output Hourly subtotal
   option(value='7') Yield Today
   option(value='8') Yield Serial
-input(type="text", placeholder="From")
-input(type="text", placeholder="To")
-button.btn.btn-primary(type="submit") View Data
+input#datetimepicker1.form-control(type='text', placeholder="From")
+input#datetimepicker2.form-control(type='text', placeholder="To")
+button.btn.btn-primary(type="submit", onclick="getbyDemand();") Pull Output by Demand
+script(type='text/javascript').
+  $(function () {
+  $('#datetimepicker1').datetimepicker();
+  $('#datetimepicker2').datetimepicker();
+  
+  });
 #output  
 #outputdetail  
 table#tableDiv.display(width='100%', cellspacing='0')  
