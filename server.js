@@ -93,6 +93,7 @@ app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")})
 app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")})
 
 app.get('/sample', function(req,res) { res.render("sample")});
+app.get('/vuejs', function(req,res) { res.render("vuejs")});
 app.get('/template', function(req,res) { res.render("template/template")});
 app.get('/sql2pivot', function(req,res) { res.render("template/sql2pivot")});
 app.get('/smtboard', function(req,res) { res.render("template/smtboard")});

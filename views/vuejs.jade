@@ -1,0 +1,48 @@
+doctype html
+html
+  #app
+   greeting
+   bodynow
+   my-checkbox
+  
+  #app-2
+    span(v-bind:title='message') Go test 2
+
+  script(src='https://vuejs.org/js/vue.min.js')
+  script.
+      Vue.component('greeting', {
+      template: '<h1>Welcome to coligo1!</h1>'
+      });
+      // create a new Vue instance and mount it to our div element above with the id of app
+           Vue.component('bodynow',{
+        template: '<p> TESTA app </p>'
+        
+      });
+
+      
+      Vue.component('my-checkbox', {
+        template: '#checkbox-template',
+        data() {
+          return { checked: false, title: 'Check me' }
+        },
+        methods: {
+          check() { this.checked = !this.checked; }
+        }
+      });
+
+    
+
+      var vm = new Vue({
+      el: '#app'
+      });
+      var app2 = new Vue({
+        el: '#app-2',
+        data: {
+          message: 'You loaded this page on ' + new Date().toLocaleString()
+        }
+      })
+ 
+
+     
+
+
