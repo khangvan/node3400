@@ -1,26 +1,51 @@
+doctype html
 html
-  head
-    link(href='css/bootstrap.min.css', rel='stylesheet')
-    link(rel='stylesheet', href='css/bootstrap-select.min.css')
-  .container
-    .row
-      h2 Bootstrap-select example
-      p
-        | This uses 
-        a(href='https://silviomoreto.github.io/bootstrap-select/') https://silviomoreto.github.io/bootstrap-select/
-      hr
-    .row-fluid
-      select.selectpicker(data-show-subtext='true', data-live-search='true')
-        option(data-subtext='Rep California1') Tom Foolery
-        option(data-subtext='Sen California') Bill Gordon
-        option(data-subtext='Sen Massacusetts') Elizabeth Warren
-        option(data-subtext='Rep Alabama') Mario Flores
-        option(data-subtext='Rep Alaska') Don Young
-        option(data-subtext='Rep California', disabled='disabled') Marvin Martinez
-      span.help-inline
-        | With 
-        code data-show-subtext="true" data-live-search="true"
-        | . Try searching for california
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
-  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
-  script(src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js')
+ head
+  title Khang Learn Jade
+  script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')
+ body
+  h1 Test function
+  input(type="text", placeholder ="nhap thong tin")
+  script(type="text/javascript", src="js/script.js")
+  
+  script.
+  //alert (data.name);
+   alert(url);
+   var newserial = logSerial();
+   newserial.setInfo(1,2,3,4);
+   newserial.log();
+   $('#1').click(function(){
+      alert ("go");
+       
+       });
+  
+ button#1(type="submit", ) nhan
+ 
+ h1 test here
+ h2 go then to
+ a(href="google.com") link      
+ p `day la 
+   |phan data
+   |can thiet `
+
+
+  - var droids = ["R2D2", "C3PO", "BB8"];
+div
+ h1 Famous Droids from Star Wars
+ for name in droids
+  div.card
+   h2= name
+
+
+    
+  #app
+    greeting
+    script(src='https://cdn.jsdelivr.net/vue/1.0.16/vue.js')
+    script.
+      Vue.component('greeting', {
+      template: '<h1>Welcome to coligo!</h1>'
+      });
+      // create a new Vue instance and mount it to our div element above with the id of app
+      var vm = new Vue({
+      el: '#app'
+      });
