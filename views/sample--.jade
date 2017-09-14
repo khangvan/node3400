@@ -1,0 +1,26 @@
+html
+  head
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(rel='stylesheet', href='css/bootstrap-select.min.css')
+  .container
+    .row
+      h2 Bootstrap-select example
+      p
+        | This uses 
+        a(href='https://silviomoreto.github.io/bootstrap-select/') https://silviomoreto.github.io/bootstrap-select/
+      hr
+    .row-fluid
+      select.selectpicker(data-show-subtext='true', data-live-search='true')
+        option(data-subtext='Rep California1') Tom Foolery
+        option(data-subtext='Sen California') Bill Gordon
+        option(data-subtext='Sen Massacusetts') Elizabeth Warren
+        option(data-subtext='Rep Alabama') Mario Flores
+        option(data-subtext='Rep Alaska') Don Young
+        option(data-subtext='Rep California', disabled='disabled') Marvin Martinez
+      span.help-inline
+        | With 
+        code data-show-subtext="true" data-live-search="true"
+        | . Try searching for california
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js')
