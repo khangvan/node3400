@@ -2,7 +2,9 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , https = require('https')
+  , path = require('path')
+  , fs = require('fs');
 
 var app = express();
 app.use(function(req, res, next) {
@@ -811,3 +813,8 @@ app.get('/jade/pms/:data', function (req, res) {
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
   });
+// //openssl req -nodes -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
+//   https.createServer({
+//     key: fs.readFileSync('key.pem'),
+//     cert: fs.readFileSync('cert.pem')
+//   }, app).listen(55555);
