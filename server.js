@@ -22,8 +22,8 @@ var allowCrossDomain = function(req, res, next) {
 
 
 app.configure(function(){
-//   app.set('port', process.env.PORT || 5000);
-  app.set('port', process.env.PORT);
+   app.set('port', process.env.PORT || 5000);
+ // app.set('port', process.env.PORT);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -805,6 +805,9 @@ app.get('/jade/pms/:data', function (req, res) {
 // rfc
 
 
-var server = app.listen(5000, function () {
-    console.log('Server 3400 is running at port 5000..');
-});
+// var server = app.listen(5000, function () {
+//     console.log('Server 3400 is running at port 5000..');
+// });
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+  });
