@@ -641,6 +641,20 @@ var localhost = {
    }
   };
 
+  var balsrv604 = {
+    server: "balsrv604",
+    database: "pms",
+    user: "report",
+    password: "report",
+    port: 1433,
+    connectionTimeout: 300000,
+    requestTimeout: 300000,
+    pool: {
+        idleTimeoutMillis: 300000,
+        max: 100
+}
+};
+
 
 function cleanforSQL(strquery){
     //strquery=strquery.replace(/_/g,' '); // fail do acs_Serial
@@ -665,41 +679,43 @@ function cleanforSQL(strquery){
 }
 
 app.get('/sql/:server/:data', function (req, res) {
-var mainconfig =req.params.server;
+var strconfig =req.params.server;
 var ismysql = false; // default for mssql
-    if (mainconfig=="vnmsrv601")
-        {
-            mainconfig = vnmsrv601;
-        }
-    else if (mainconfig=="vnmacsdb")
-        {
-            mainconfig = vnmacsdb;
-        }
+    // if (strconfig=="vnmsrv601")
+    //     {
+    //         mainconfig = vnmsrv601;
+    //     }
+    // else if (strconfig=="vnmacsdb")
+    //     {
+    //         mainconfig = vnmacsdb;
+    //     }
 
-     else if (mainconfig=="vnmacsrpt2")
-        {
-            mainconfig = vnmacsrpt2;
-        }
+    //  else if (strconfig=="vnmacsrpt2")
+    //     {
+    //         mainconfig = vnmacsrpt2;
+    //     }
 
-        else if (mainconfig=="svkacsrpt2")
-           {
-               mainconfig = svkacsrpt2;
-           }
-       else if (mainconfig=="leonardo")
-              {
-                  mainconfig = leonardo;
-       }
-       else if (mainconfig=="smta")
-              {
-                  mainconfig = smta;
-       }
-       else if (mainconfig=="vnmsrv610")
+    //     else if (strconfig=="svkacsrpt2")
+    //        {
+    //            mainconfig = svkacsrpt2;
+    //        }
+    //    else if (strconfig=="leonardo")
+    //           {
+    //               mainconfig = leonardo;
+    //    }
+    //    else if (strconfig=="smta")
+    //           {
+    //               mainconfig = smta;
+    //    }
+       if (strconfig=="vnmsrv610")
               {
 
             ismysql = true;
        }
            else {
-            mainconfig = localhost;
+            // mainconfig = localhost;
+            mainconfig = eval(strconfig);
+            console.log('here server you connnect: ',JSON.stringify(mainconfig));
            }
 
 if (ismysql == false) { //mssql

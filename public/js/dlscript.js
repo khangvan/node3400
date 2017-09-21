@@ -229,7 +229,7 @@ function jsFunction(value) {
 
 
 
- 		$.getJSON("http://vnmacsrpt2:5000/sumhour", function (mps) {
+ 		$.getJSON("/sumhour", function (mps) {
  			$("#output").pivotUI(mps, {
 
  				cols: ["Event_date", "Shift", "Event_Hour"],
