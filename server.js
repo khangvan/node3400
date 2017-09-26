@@ -36,8 +36,8 @@ app.configure(function(){
   app.use(express.session({ secret: 'secret' }));
   app.use(allowCrossDomain);
   app.use( function(req, res, next){
-    app.locals.pretty = true
-    next()
+    app.locals.pretty = true;
+    next();
   });
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -82,18 +82,24 @@ app.get('/lineshow', function(req,res) { res.render("app/lineshow")});
 app.get('/lineshowpv', function(req,res) { res.render("app/lineshowPV")});
 app.get('/issue', function(req,res) { res.render("app/issue")});
 app.get('/changeover', function(req,res) { res.render("app/changeover")});
-app.get('/smtdowntime', function(req,res) { res.render("app/smtdowntime")})
-app.get('/testfailure', function(req,res) { res.render("app/testfailure")})
-app.get('/yield', function(req,res) { res.render("app/yield")})
-app.get('/pnpc', function(req,res) { res.render("app/pnpc")})
-app.get('/repair', function(req,res) { res.render("app/repair")})
-app.get('/pamonitor', function(req,res) { res.render("app/pamonitor")})
+app.get('/smtdowntime', function(req,res) { res.render("app/smtdowntime")});
+app.get('/testfailure', function(req,res) { res.render("app/testfailure")});
+app.get('/yield', function(req,res) { res.render("app/yield")});
+app.get('/pnpc', function(req,res) { res.render("app/pnpc")});
+app.get('/repair', function(req,res) { res.render("app/repair")});
+app.get('/pamonitor', function(req,res) { res.render("app/pamonitor")});
+app.get('/app/:name', function(req,res) { 
+    
+    res.render(`app/${req.params.name}`)});
 
-app.get('/pdfview', function(req,res) { res.render("cms/pdfview")})
+app.get('/pdfview', function(req,res) { res.render("cms/pdfview")});
+app.get('/cms/:name', function(req,res) { 
+    
+    res.render(`cms/${req.params.name}`)});
 
 
-app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")})
-app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")})
+app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")});
+app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")});
 
 app.get('/sample', function(req,res) { res.render("sample")});
 app.get('/vuejs', function(req,res) { res.render("vuejs")});
@@ -183,23 +189,12 @@ app.get('/:type', function (req, res) {
 
         // query to the database and get the records
         request.query(query, function (err, recordset) {
-
             if (err) console.log(err)
-
             // send records as a response
             res.send(recordset);
-
             // for log
-
-
             var fullDateend = new Date()
             console.log("#done------------------------------------------------------#"+fullDateend);
-
-
-
-
-
-
         });
     });
 
@@ -355,7 +350,7 @@ app.get('/qms/pk/', function (req, res) {
 
 
 
-   var fullDate = new Date()
+   var fullDate = new Date();
    var type =req.params.type;
     console.log("#Qms ---p view-------------------------------------------#"+fullDate);
 
@@ -365,7 +360,7 @@ app.get('/qms/pk/', function (req, res) {
         if (err) console.log(err);
 
 			var query ='';
-            query ="select *   FROM [QualityVNDB].[dbo].[PackingQualityRecord] where  QReleaseDateTime is null		order by qid desc"
+            query ="select *   FROM [QualityVNDB].[dbo].[PackingQualityRecord] where  QReleaseDateTime is null		order by qid desc";
 
         // create Request object
         var request = new sql.Request();
