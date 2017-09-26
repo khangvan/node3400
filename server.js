@@ -53,6 +53,7 @@ app.get('/welcome', function(req,res) {
     res.render("main3");
   });
 
+
 //var express = require('express');
 //var app = express();
 var sql = require("mssql");
@@ -94,8 +95,7 @@ app.get('/app/:name', function(req,res) {
 
 app.get('/pdfview', function(req,res) { res.render("cms/pdfview")});
 app.get('/cms/:name', function(req,res) { 
-    
-    res.render(`cms/${req.params.name}`)});
+        res.render(`cms/${req.params.name}`)});
 
 
 app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")});
@@ -109,6 +109,8 @@ app.get('/sql2pivot', function(req,res) { res.render("template/sql2pivot")});
 app.get('/smtboard', function(req,res) { res.render("template/smtboard")});
 app.get('/datatables', function(req,res) { res.render("template/datatables")});
 app.get('/slidebar', function(req,res) { res.render("template/slidebar")});
+app.get('/template/:name', function(req,res) { 
+    res.render(`template/${req.params.name}`)});
 
 
 
@@ -133,9 +135,10 @@ var dataroot=
       var str ="test";
       var str=JSON.stringify(dataroot[0][nhap]);
       console.log('string: '+ str);
-      if (str=="" || str=="favicon.ico" ||str== undefined)
-          { str ="select  * from vjascapacity";}
-
+    //   if (str=="" || str=="favicon.ico" ||str== undefined)
+    //       { str ="select  * from vjascapacity";}
+        if (str=="" ||str== undefined)
+          { str =nhap;}
 
       //all data must be trim quote : "test" -> test
       //str=str.substring(1,str.length-1);
@@ -149,6 +152,63 @@ var dataroot=
 app.get('/favicon.ico', function(req, res) {
     res.send(204);
 });
+
+// app.get('/:name', function(req,res) {
+//     try {
+//         res.render(`${req.params.name}`);
+//       } catch (err) {
+//           console('Bi loi ',err);
+//       }
+//       finally {
+//     console.log('do manual');
+//    //host name
+//    var hostname='';
+//    require('dns').reverse(req.connection.remoteAddress, function(err, domains) {
+
+
+//      hostname= domains;
+//     });
+//     //end host name
+
+
+//    var fullDate = new Date()
+//    var type =req.params.name;
+//     if (type == 'favicon.con')
+//         {
+//             type =test;
+//             return;
+//         }
+//     console.log("#start------#"+fullDate);
+//    console.log('001-root-start type=' +type+ ' ');
+//        // connect to your database
+//     sql.connect(config, function (err) {
+
+//         if (err) {
+//             console.log('loi ben trong',err);
+
+//         }
+// 			var query ='';
+//             query =getquerybyRequire(type);
+
+// 			console.log('001-then run '+query);
+
+//         // create Request object
+//         var request = new sql.Request();
+
+//         // query to the database and get the records
+//         request.query(query, function (err, recordset) {
+//             if (err) console.log(err)
+//             // send records as a response
+//             res.send(recordset);
+//             // for log
+//             var fullDateend = new Date();
+//             console.log("#done------------------------------------------------------#"+fullDateend);
+//         });
+//     });
+//       }
+    
+// });
+
 
 app.get('/:type', function (req, res) {
 
@@ -177,7 +237,7 @@ app.get('/:type', function (req, res) {
 
         if (err) {
             console.log(err);
-
+            
         }
 			var query ='';
             query =getquerybyRequire(type);
@@ -189,7 +249,10 @@ app.get('/:type', function (req, res) {
 
         // query to the database and get the records
         request.query(query, function (err, recordset) {
-            if (err) console.log(err)
+            if (err) {
+                console.log(err);
+                res.render(`${req.params.type}`);
+            }
             // send records as a response
             res.send(recordset);
             // for log
