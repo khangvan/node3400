@@ -49,9 +49,9 @@ app.configure('development', function(){
 app.get('/', function(req,res) {
   res.render("main");
 });
-app.get('/welcome', function(req,res) {
-    res.render("main3");
-  });
+// app.get('/welcome', function(req,res) {
+//     res.render("main3");
+//   });
 
 
 //var express = require('express');
@@ -91,15 +91,18 @@ app.get('/repair', function(req,res) { res.render("app/repair")});
 app.get('/pamonitor', function(req,res) { res.render("app/pamonitor")});
 app.get('/app/:name', function(req,res) { 
     
-    res.render(`app/${req.params.name}`)});
+    res.render(`app/${req.params.name}`)}); // allow app
 
 app.get('/pdfview', function(req,res) { res.render("cms/pdfview")});
 app.get('/cms/:name', function(req,res) { 
-        res.render(`cms/${req.params.name}`)});
+        res.render(`cms/${req.params.name}`)});// allow cms
 
 
 app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")});
 app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")});
+
+app.get('/smt/:name', function(req,res) { 
+    res.render(`smt/${req.params.name}`)});// allow smt
 
 app.get('/sample', function(req,res) { res.render("sample")});
 app.get('/vuejs', function(req,res) { res.render("vuejs")});
@@ -110,8 +113,9 @@ app.get('/smtboard', function(req,res) { res.render("template/smtboard")});
 app.get('/datatables', function(req,res) { res.render("template/datatables")});
 app.get('/slidebar', function(req,res) { res.render("template/slidebar")});
 app.get('/template/:name', function(req,res) { 
-    res.render(`template/${req.params.name}`)});
-
+    res.render(`template/${req.params.name}`)}); // allow template for test
+    app.get('/test/:name', function(req,res) { 
+        res.render(`test/${req.params.name}`)}); // allow template for test
 
 
 var dataroot=
@@ -653,6 +657,12 @@ var localhost = {
     user: "reports",
     password: "reports",
     port: 1433
+    // ,connectionTimeout: 300000,
+    // requestTimeout: 300000,
+    // pool: {
+    //     idleTimeoutMillis: 300000,
+    //     max: 100
+    //    }
     };
        var vnmacsdb = {
          server: "vnmacsdb",

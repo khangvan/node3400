@@ -1,0 +1,175 @@
+doctype html
+html
+ head
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    title PACKING DATA
+    link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
+    //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
+    link(href='/css/bootstrap.css', rel='stylesheet')
+    //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
+    //- link(rel='stylesheet', type='text/css', href='/css/jquery.dataTables.min.css')
+    style(type='text/css')
+      body {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      }
+      .sidebar-nav {
+      padding: 9px 0;
+      }
+      table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+      }
+    script(type="text/javascript", src="http://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.js")    
+    script(type='text/javascript', language='javascript', src='/js/jquery-1.12.4.min.js')
+    //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
+    //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
+    script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.js')
+    //script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.min.js')
+    //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
+    script(type="text/javascript", src="/js/d3.v4.min.js") 
+    
+    //- link(rel='stylesheet', type='text/css', media='screen', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/font-awesome.min.css')
+    link(href='/css/prettify-1.0.css', rel='stylesheet')
+    link(href='/css/base.css', rel='stylesheet')
+    link(href='/css/bootstrap-datetimepicker.css', rel='stylesheet')
+    script(type="text/javascript", src="/js/moment-with-locales.js")
+    script(type="text/javascript", src="/js/bootstrap-datetimepicker.js")
+    
+    
+    //- //DO FOR BUTTON Download
+    //- script(type="text/javascript", src="/js/dataTables.buttons.min.js") 
+    //- script(type="text/javascript", src="/js/jszip.min.js") 
+    //- script(type="text/javascript", src="/js/pdfmake.min.js") 
+    //- script(type="text/javascript", src="/js/vfs_fonts.js") 
+    //- script(type="text/javascript", src="/js/buttons.html5.min.js") 
+    //DO RESIZE W
+    script(type="text/javascript", src="/js/dataTables.pageResize.min.js") 
+    
+
+    //- script(type='text/javascript', src='fusioncharts.js')
+    //- script(type='text/javascript', src='fusioncharts-jquery-plugin.js')
+    script(type='text/javascript', src='https://code.jquery.com/jquery-2.2.4.js')
+    script(type='text/javascript', src='https://unpkg.com/fusioncharts@3.12.0/fusioncharts.js')
+    script(type='text/javascript', src='https://unpkg.com/fusioncharts@3.12.0/fusioncharts.charts.js')
+    script(type='text/javascript', src='https://unpkg.com/fusioncharts@3.12.0/themes/fusioncharts.theme.fint.js')
+    script(type='text/javascript', src='https://rawgit.com/fusioncharts/fusioncharts-jquery-plugin/feature/node-commonjs-support/package/fusioncharts-jquery-plugin.js')
+     
+    script(type='text/javascript', language='javascript', src='/js/url2id.js')
+    //- script.init(type='text/javascript').
+    
+   
+      
+     
+      
+      
+      
+body.wide.comments.example
+   .navbar.navbar-inverse.navbar-fixed-top
+           .navbar-inner
+             .container-fluid
+               a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                 span.icon-bar
+                 span.icon-bar
+                 span.icon-bar
+               a.brand(href='') PACKING
+               .nav-collapse.collapse
+                 //p.navbar-text.pull-right
+                 //  | Logged in as
+                 //  a.navbar-link(href='#') Username
+                 ul.nav
+                   li.active
+                     a(href='/') HOME
+                   li
+                     a(href='show') SHOW
+                   li
+                     a(href='lineshow') LINE
+   .container-fluid
+     .row-fluid
+       .span12
+        
+         input#po(type="text",value="" ,placeholder="Production Order") 
+         button.btn.btn-primary(type="submit",onclick ="doall();") Tracking Packing Info
+         
+     .row-fluid
+       .span12
+         h3 THÔNG TIN PO
+         table#tblPO.display(cellspacing='1', width='100%')
+     .row-fluid
+      //-  .span12
+      //-   .col-sm-3
+      //-      input#datetimepicker1.form-control(type='text', placeholder="From")
+      //-   .col-sm-3
+      //-      input#datetimepicker2.form-control(type='text', placeholder="To")
+      //-   .col-sm-4
+      //-      input#head(type="text", value="head--") H--d
+      //-      button.btn.btn-primary(type="submit", onclick=`testhead();`) Test head js
+      
+        script(type='text/javascript').
+        $(function () {
+        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker2').datetimepicker();
+        
+        });
+        
+      .row-fluid
+        .span12
+          h3 THÔNG TIN BOX ĐÃ ĐÓNG GÓI
+          table#tblBOX.display(cellspacing='0', width='100%')
+          #Results
+      .row-fluid
+        .span12    
+          #chart-container
+  script.
+  
+    var po = $('#po').val();
+    function showPo() {
+      
+       return new Promise(function(){
+      var box = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${po}','po'              `;
+      buildHtmlTableRAW(box,'#tblPO');
+      console.log('Load PO Done');
+      });
+
+
+    }
+
+    function showBox (){
+      return new Promise(function(){
+      var box = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${po}','BOX'              `;
+      buildHtmlTableRAW(box,'#tblBOX');
+      console.log('Load BOX Done');
+      });
+    }
+    
+
+    $(document).ready(function() {
+      //- doall()
+      doall();
+      
+
+
+    });
+
+    
+    //do
+      function doall (){
+        var ponum = $('#po').val();
+        let po = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${ponum}','po'`;
+        let box = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${ponum}','BOX'`;
+        console.log(po,box);
+        $.getJSON(po).then( function(data1) {
+            tabulate(data1,'#tblPO')
+            return $.getJSON(box, data1);
+          }).then(function(data2) {
+            tabulate(data2,'#tblBOX')
+            return $.getJSON('http://server/call3', data2);
+        }).then(function(data3){
+          return console.log("ok");
+        })
+
+      }
+    
+    

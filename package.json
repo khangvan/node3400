@@ -17,13 +17,20 @@
     "mysql": "^2.14.1",
     "nodemailer": "^4.0.1",
     "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.1",
+    "run-p": "0.0.0",
+    "run-s": "0.0.0",
     "serialport": "^4.0.7",
-    "socket.io": "^1.7.1"
+    "socket.io": "^1.7.1",
+    "sync-files": "^1.0.3"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server",
+    "prd": "cd /d G:/Document Control/Current Method sheet/ && http-server -p 5001 -d -i --cors",
+    "httpdoc": "http-server -p 5001 -d -i --cors",
+    "syncfromdev": "sync-files D:/Node3400 Y:/Node3400Sync",
+    "watch": "sync-files --watch D:/Node3400 Y:/Node3400Sync"
   },
   "repository": {
     "type": "git",

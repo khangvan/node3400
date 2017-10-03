@@ -170,19 +170,24 @@ script.
   //- let server = $("#server").val();
   //- let query = $("#query").val();
   //alert (server);
-  let  url =`sql/smta/exec [SiplaceOIS]..HourlyOutputMonitoring`;
-   //alert (url);
-    $.getJSON(url, function (mps) {
-    
+  let url = `sql/smta/exec [SiplaceOIS]..HourlyOutputMonitoring`;
+  //alert (url);
+  $.getJSON(url, function (mps) {
+
     //alert (JSON.stringify(mps));
-     $("#output").pivotUI(mps, {
-      cols: [ "TimeHour"],
-      rows: ["TimeDate","strBoard", "BoardTarget", "ActualQty"],
+    $("#output").pivotUI(mps, {
+      cols: ["TimeHour"],
+      rows: ["TimeDate", "strBoard", "BoardTarget", "ActualQty"],
       vals: ["Variant"],
       aggregatorName: "Integer Sum",
-      rendererName: "Table"
-     });
+      rendererName: "Table",
+      renderers: $.extend(
+        $.pivotUtilities.renderers,
+        $.pivotUtilities.c3_renderers,
+        $.pivotUtilities.export_renderers
+      )
     });
-   }
+  });
+  }
 
   //setTimeout(refresh, 10000*ntime);
