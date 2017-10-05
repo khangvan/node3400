@@ -4,7 +4,10 @@ var express = require('express')
   , http = require('http')
   , https = require('https')
   , path = require('path')
-  , fs = require('fs');
+  , fs = require('fs'),
+   os = require("os");
+  
+
 
 var app = express();
 app.use(function(req, res, next) {
@@ -46,12 +49,42 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+
+
+  var getClientIp = function(req) {
+    return (req.headers["X-Forwarded-For"] ||
+            req.headers["x-forwarded-for"] ||
+            '').split(',')[0] ||
+           req.client.remoteAddress;
+           
+};
+
+function whois()
+{
+    var interfaces = os.networkInterfaces();
+    var addresses = [];
+    for (var k in interfaces) {
+        for (var k2 in interfaces[k]) {
+            var address = interfaces[k][k2];
+            if (address.family === 'IPv4' && !address.internal) {
+                addresses.push(address.address);
+            }
+        }
+    }
+    
+    var hostname = os.hostname();
+    console.log("Machine name: ",hostname, addresses);
+}
+
 app.get('/', function(req,res) {
+    console.log("ClientIP:", getClientIp(req));
+    
+    // getClientIp(req);
   res.render("main");
 });
-// app.get('/welcome', function(req,res) {
-//     res.render("main3");
-//   });
+app.get('/welcome', function(req,res) {
+    res.render("welcome");
+  });
 
 
 //var express = require('express');
@@ -137,7 +170,7 @@ var dataroot=
 
   function getquerybyRequire(nhap) {
       var str ="test";
-      var str=JSON.stringify(dataroot[0][nhap]);
+      str=JSON.stringify(dataroot[0][nhap]);
       console.log('string: '+ str);
     //   if (str=="" || str=="favicon.ico" ||str== undefined)
     //       { str ="select  * from vjascapacity";}
@@ -157,61 +190,6 @@ app.get('/favicon.ico', function(req, res) {
     res.send(204);
 });
 
-// app.get('/:name', function(req,res) {
-//     try {
-//         res.render(`${req.params.name}`);
-//       } catch (err) {
-//           console('Bi loi ',err);
-//       }
-//       finally {
-//     console.log('do manual');
-//    //host name
-//    var hostname='';
-//    require('dns').reverse(req.connection.remoteAddress, function(err, domains) {
-
-
-//      hostname= domains;
-//     });
-//     //end host name
-
-
-//    var fullDate = new Date()
-//    var type =req.params.name;
-//     if (type == 'favicon.con')
-//         {
-//             type =test;
-//             return;
-//         }
-//     console.log("#start------#"+fullDate);
-//    console.log('001-root-start type=' +type+ ' ');
-//        // connect to your database
-//     sql.connect(config, function (err) {
-
-//         if (err) {
-//             console.log('loi ben trong',err);
-
-//         }
-// 			var query ='';
-//             query =getquerybyRequire(type);
-
-// 			console.log('001-then run '+query);
-
-//         // create Request object
-//         var request = new sql.Request();
-
-//         // query to the database and get the records
-//         request.query(query, function (err, recordset) {
-//             if (err) console.log(err)
-//             // send records as a response
-//             res.send(recordset);
-//             // for log
-//             var fullDateend = new Date();
-//             console.log("#done------------------------------------------------------#"+fullDateend);
-//         });
-//     });
-//       }
-    
-// });
 
 
 app.get('/:type', function (req, res) {
@@ -220,14 +198,13 @@ app.get('/:type', function (req, res) {
    //host name
    var hostname='';
    require('dns').reverse(req.connection.remoteAddress, function(err, domains) {
-
-
      hostname= domains;
+     console.log(hostname);
     });
     //end host name
 
 
-   var fullDate = new Date()
+   var fullDate = new Date();
    var type =req.params.type;
     if (type == 'favicon.con')
         {
@@ -742,6 +719,7 @@ function cleanforSQL(strquery){
         strquery=strquery.replace(/leftjoin/g,' left join ');
         strquery=strquery.replace("*",' * ');
         strquery=strquery.replace(/[+]/g,' '); // nice action May 26
+        strquery=strquery.replace(/[/]/g,'-'); //for date
     return strquery;
 
 }

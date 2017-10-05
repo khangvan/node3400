@@ -95,9 +95,9 @@ body.wide.comments.example
          
      .row-fluid
        .span12
-         h3 THÔNG TIN PO
+         h3 THÔNG TIN Serial
          table#tblPO.display(cellspacing='1', width='100%')
-     .row-fluid
+
       //-  .span12
       //-   .col-sm-3
       //-      input#datetimepicker1.form-control(type='text', placeholder="From")
@@ -118,6 +118,11 @@ body.wide.comments.example
         .span12
           h3 THÔNG TIN BOX ĐÃ ĐÓNG GÓI
           table#tblBOX.display(cellspacing='0', width='100%')
+
+      .row-fluid
+        .span12
+          h3 THÔNG TIN BOX ĐÃ ĐÓNG GÓI
+          table#tblSerial.display(cellspacing='0', width='100%')
           #Results
       .row-fluid
         .span12    
@@ -158,15 +163,17 @@ body.wide.comments.example
       function doall (){
         var ponum = $('#po').val();
         let po = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${ponum}','po'`;
+        let serial = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${ponum}','serial'`;
         let box = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${ponum}','BOX'`;
         console.log(po,box);
         $.getJSON(po).then( function(data1) {
             tabulate(data1,'#tblPO')
-            return $.getJSON(box, data1);
+            return $.getJSON(box, data1); 
           }).then(function(data2) {
             tabulate(data2,'#tblBOX')
-            return $.getJSON('http://server/call3', data2);
+            return $.getJSON(serial, data2);
         }).then(function(data3){
+          tabulate(data3,'#tblSerial')
           return console.log("ok");
         })
 

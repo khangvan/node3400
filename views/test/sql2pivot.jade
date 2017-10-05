@@ -170,8 +170,8 @@ script.
   let server = $("#server").val();
   let query = $("#query").val();
   //- alert (server);
-  let  url =`http://vnmacsrpt2:5000/sql/`+server+`/`+query;
-  //-  alert (url);
+  let  url =`/sql/`+server+`/`+query;
+    console.log(url);
     $.getJSON(url, function (mps) {
     
     //alert (JSON.stringify(mps));
