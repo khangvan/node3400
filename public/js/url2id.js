@@ -1,5 +1,6 @@
 // Builds the HTML Table out of myList json data from Ivy restful service.
 function buildHtmlTable(url, SharpWID) {
+    $(SharpWID).empty();
  var myList;
  console.log("go convert" + SharpWID);
  $.getJSON(url, function(data) {

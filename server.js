@@ -149,7 +149,8 @@ app.get('/template/:name', function(req,res) {
     res.render(`template/${req.params.name}`)}); // allow template for test
     app.get('/test/:name', function(req,res) { 
         res.render(`test/${req.params.name}`)}); // allow template for test
-
+app.get('/imwm/:name', function(req,res) { 
+    res.render(`imwm/${req.params.name}`)}); // allow template for test
 
 var dataroot=
     [
