@@ -20,14 +20,14 @@
 
  1.  USER/Actor: OPERTOR, SUPPERVISER
 
-	2. OBJECT
+  2. OBJECT
 
-    - TO# paper with MATERIAL PN
-    - Material PN on Actual box
-    - Material PN on Actual label
-    - SUPPORT EQUI: DL-AXIST, DESTOP COMPUTER, MOBILE DEVICE, TABLET..
+   - TO# paper with MATERIAL PN
+   - Material PN on Actual box
+   - Material PN on Actual label
+   - SUPPORT EQUI: DL-AXIST, DESTOP COMPUTER, MOBILE DEVICE, TABLET..
 
-	3. PROCESS CASE
+2. PROCESS CASE
 
     - Op Login
 
@@ -51,34 +51,36 @@
       	Start --> Done((Commit Done TO#))
       	Split --> Done((Commit Done TO#))
       	
-      	
-
-
       ```
 
-      ​
 
-	4. SEQUENCE
 
-    ``` mermaid
-    sequenceDiagram
-        participant Op
-        participant Sys
-        Op->> Sys: Login
-        Sys->>Op: Success
-        Op->> Sys: TO#
-        Note left of Op: START Order
-        Sys->>Sys: Load from Saplink
-        Sys->>Op: Show list TO
-        Sys->>Sys: Check Fact to filter undone Mat
-        Sys->>Op: Show list TO REfresh
-        Op->>Op: check if ready to start
-        Note left of Op: Làm nha
-        
 
-    ```
+  
 
-    ​
+3. SEQUENCE
+
+
+```mermaid
+sequenceDiagram
+    participant Op
+    participant Sys
+    Op->> Sys: Login
+    Sys->>Op: Success
+    Op->> Sys: TO#
+    Note left of Op: START Order
+    Sys->>Sys: Load from Saplink
+    Sys->>Op: Show list TO
+    Sys->>Sys: Check Fact to filter undone Mat
+    Sys->>Op: Show list TO REfresh
+    Op->>Op: check if ready to start
+    Note left of Op: Làm nha
+```
+
+
+
+
+
 
 
 

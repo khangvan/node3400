@@ -87,26 +87,26 @@ html
        
        function buildHtmlTableaddCol(urld3, SharpWID) {
        
-        //alert ("start buildHtmlTableRAW");
-        console.log('now d3');
-       
-       
-       
-         d3.json(urld3, function(error, data) {
-        //alert ('data is '+JSON.stringify(data));
-          var columnSet = [];
-           // var headerTr$ = $('<tr/>');
-           // var headerThead$ = $('</thead>');
-           for (var i = 0; i < data.length; i++) {
-            var rowHash = data[i];
-            for (var key in rowHash) {
-             if ($.inArray(key, columnSet) == -1) {
-              columnSet.push(key);
-       
-             }
+          //alert ("start buildHtmlTableRAW");
+          console.log('now d3');
+        
+        
+        
+          d3.json(urld3, function(error, data) {
+          //alert ('data is '+JSON.stringify(data));
+            var columnSet = [];
+            // var headerTr$ = $('<tr/>');
+            // var headerThead$ = $('</thead>');
+            for (var i = 0; i < data.length; i++) {
+              var rowHash = data[i];
+              for (var key in rowHash) {
+              if ($.inArray(key, columnSet) == -1) {
+                columnSet.push(key);
+        
+              }
+              }
             }
-           }
-        console.log(columnSet);
+          console.log(columnSet);
        
         //console.log("d3 running w data", JSON.stringify(data));
           function tabulate(data, columns) {
@@ -182,25 +182,25 @@ html
                ]
            }
           );
-          $(SharpWID+' tbody').on( 'click', 'button', function () {
-              var data = table.row( $(this).parents('tr') ).data();
-              let a =`http:////vnmacsrpt2:5001` + data[1] +``;
-              //let a =`"\\` + data[4] +`"`;
-              //a=a.replace(/ /g, "%20");
-              //alert (a);
-              if (aContainsB(a,'pdf') || aContainsB(a,'PDF'))
-               {
-               doLoadPDF((a));
-               //alert( data[0] +"'s salary is: "+ data[ 4 ] );
-               console.log((a));
-               }
-              else {
-               alert ("This not PDF so file will be downloaded");
-               window.open(a, '_blank')
-              }
-          
-             
-          } );
+            $(SharpWID+' tbody').on( 'click', 'button', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                let a =`http:////vnmacsrpt2:5001` + data[1] +``;
+                //let a =`"\\` + data[4] +`"`;
+                //a=a.replace(/ /g, "%20");
+                //alert (a);
+                if (aContainsB(a,'pdf') || aContainsB(a,'PDF'))
+                {
+                doLoadPDF((a));
+                //alert( data[0] +"'s salary is: "+ data[ 4 ] );
+                console.log((a));
+                }
+                else {
+                alert ("This not PDF so file will be downloaded");
+                window.open(a, '_blank')
+                }
+            
+              
+            } );
 
          });
        }    

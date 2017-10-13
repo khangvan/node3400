@@ -75,7 +75,7 @@ html
     .row-fluid
      .span6      
             input#op(type="text", placeholder="Operator code.", onkeydown=`goNext(event,this,"order");`)
-            input#order(type="text", value='', placeholder="Transfer Order", onkeydown=`loadTabletodo();`)
+            input#order(type="text", value='', placeholder="Transfer Order", onkeydown=`loadTabletodo(event);`)
      .span4
             a.btn.btn-primary.btn-medium(onclick="loadTabletodo();") TO# TODO
             a.btn.btn-primary.btn-small(onclick="loadTableall();") TO# ALL
@@ -188,6 +188,49 @@ html
         }
     }
 
+
+    function check2nd(){
+        //check data if exits in json
+        //first value check
+         let a,b,c;
+        a= check1.value;
+        b= check2.value;
+        c=check3.value;
+        stateObj = document.getElementByID("check2");
+        if (!(a == '') && !(b ==  a)){
+                         
+                        stateObj.style.backgroundColor = "red";
+                        alert("Sai thông tin");
+                        check2.value='';
+                        document.getElementById('check2').focus();
+              
+             
+        }
+        else{
+            //nothing
+            stateObj.style.backgroundColor = "white";
+        }
+    }
+
+    function check3rd(){
+        //check data if exits in json
+        //first value check
+        stateObj = document.getElementByID("check3");
+        if (!(check3.value == '') & !(check3.value ==  check1.value)){
+                         
+                        stateObj.style.backgroundColor = "red";
+                        alert("Sai thông tin");
+                        check2.value='';
+                        document.getElementById('check3').focus();
+              
+             
+        }
+        else{
+            //nothing
+            stateObj.style.backgroundColor = "white";
+        }
+    }
+
     var goLoadandNext= function(event,ele, nextinput) {
         var e=event || window.event;
       if(event.keyCode == 13) {
@@ -202,6 +245,8 @@ html
            
                 verify();
                 checkFirst();
+                //- check2nd();
+                //- check3rd();
 
             
             document.getElementById(nextinput).focus();
@@ -230,7 +275,9 @@ html
     //- }
     
     var globalData;
-    function loadTabletodo(){
+    function loadTabletodo(event){
+        var e=event || window.event;
+      if(event.keyCode == 13) {
             if(1==1) {
                DienCodeNV();
                 let to= order.value;
@@ -243,6 +290,7 @@ html
                     console.log("fetchJSONFile data is: "  +JSON.stringify(data));
                     globalData=data;
                 })
+    }
     }
 
    
@@ -265,22 +313,28 @@ html
         a= check1.value;
         b= check2.value;
         c=check3.value;
-        //first value check
-        //- if (!(a == '') && b == ''&& c == ''){
-        //-     if(checkFirst()){
-        //-         //go next
-        //-         alert("thuoc TO")
-        //-     }
-        //-     else
-        //-     {
-        //-                  alert(`Material ko thuoc TO này`);
-        //-                 check1.value='';
-        //-                 document.getElementById('check1').focus();
-                        
-        //-     }
-        //- }
+        var stateObj ;
+        //CHECK2
+        stateObj = document.getElementByID("check2");
+        var stateValue = stateObj.value; 
+        
+        stateObj.style.backgroundColor = "red";
+        if (!(a == '') && !(b == '') &&!(b == a) ){
+        alert("Sai rồi, kiểm tra PN");
+        document.getElementById("check2").focus();
+        }
+        stateObj.style.backgroundColor = "green";
+        //check3
+        
+        stateObj = document.getElementByID("check3");
+        stateObj.style.backgroundColor = "red";
+        if (!(a == '') && !(c == '') &&!(c == a) ){
+        alert("Sai rồi, kiểm tra PN");
+        document.getElementById("check3").focus();
+        }
+        stateObj.style.backgroundColor = "green";
 
-        if (a==b && a==c && !(a == '') && b != ''&& c != ''){
+        if (a==b && a==c && !(a == '') &&  !(b == '')&&  !(c == '')){
             let to= order.value;
             let mat= check1.value;
             let code= op.value;

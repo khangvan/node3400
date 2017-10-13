@@ -130,7 +130,7 @@ app.get('/pdfview', function(req,res) { res.render("cms/pdfview")});
 app.get('/cms/:name', function(req,res) { 
         res.render(`cms/${req.params.name}`)});// allow cms
 
-
+   
 app.get('/smtoutput', function(req,res) { res.render("smt/smtoutputpv")});
 app.get('/smtmonitor', function(req,res) { res.render("smt/targetmonitor")});
 

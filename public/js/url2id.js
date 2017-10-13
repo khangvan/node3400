@@ -144,29 +144,29 @@ const buildHtmlTableD3=(urld3, SharpWID)=>{
   })
 }
  
-
+function fetchJSONFile(path, callback) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                var data = JSON.parse(httpRequest.responseText);
+                   console.log('ajax data: ',JSON.stringify(data));
+                   // alert(JSON.stringify(data));
+                   //alert("go ajax");
+                if (callback) callback(data);
+            }
+        }
+        };
+        httpRequest.open('get', path);
+        httpRequest.send(); 
+    }
  
 function buildHtmlTableRAWfromAjax(urld3, SharpWID) {
   console.log('Ajax Build HTML as raw '+ SharpWID+urld3 );
   $(SharpWID).empty();
   // var path2 = `/sql/vnmsrv601/exec [FFCPACKING]..amevn_TellmeAllPackingPO '${po}','box'`
   
-         function fetchJSONFile(path, callback) {
-           var httpRequest = new XMLHttpRequest();
-           httpRequest.onreadystatechange = function() {
-               if (httpRequest.readyState === 4) {
-                   if (httpRequest.status === 200) {
-                       var data = JSON.parse(httpRequest.responseText);
-                          console.log('ajax data: ',JSON.stringify(data));
-                          // alert(JSON.stringify(data));
-                          //alert("go ajax");
-                       if (callback) callback(data);
-                   }
-               }
-               };
-               httpRequest.open('get', path);
-               httpRequest.send(); 
-           }
+         
          
       //  // this requests the file and executes a callback with the parsed result once
       //  //   it is available
