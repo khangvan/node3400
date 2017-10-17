@@ -184,6 +184,27 @@ function buildHtmlTableRAWfromAjax(urld3, SharpWID) {
        });
 
 }
+
+function buildListAjax(urld3, SharpWID) {
+    console.log('Ajax Build HTML as raw '+ SharpWID+urld3 );
+    $(SharpWID).empty();
+
+            fetchJSONFile(urld3, function(data){
+                console.log(JSON.stringify(data));
+                    var obj = data.query.results.entry,  // get entry object (array) from JSON data
+                        ul = $("<ul>");                    // create a new ul element
+                    // iterate over the array and build the list
+                    for (var i = 0, l = obj.length; i < l; ++i) {
+                        ul.append(`<li><img src="` + obj[i].link.href + `" alt="`+ obj[i].title.content +`"></li>`);
+                    }
+                    $(SharpWID).append(ul);    // add the list to the DOM
+                  
+              return JSON.stringify(data);
+         });
+  
+  }
+
+
 function buildHtmlTableRAW(urld3, SharpWID) {
   //  alert ("start buildHtmlTableRAW");
   console.log('Build HTML as raw BY d3 '+ SharpWID+urld3 );

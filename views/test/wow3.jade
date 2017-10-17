@@ -1,0 +1,40 @@
+doctype html
+head
+	title Css image gallery
+	meta(http-equiv='content-type', content='text/html; charset=utf-8')
+	meta(name='description', content='Made with WOW Slider - Create beautiful, responsive image sliders in a few clicks. Awesome skins and animations. Css image gallery')
+	// Start WOWSlider.com HEAD section
+	// add to the <head> of your page
+	link(rel='stylesheet', type='text/css', href='/engine1/style.css')
+	script(type='text/javascript', src='/engine1/jquery.js')
+	script(type='text/javascript', charset='utf8', src='/js/jquery-1.12.4.min.js')
+	script(type='text/javascript', charset='utf8', src='/js/url2id.js')
+	// End WOWSlider.com HEAD section
+// Start WOWSlider.com BODY section
+// add to the <body> of your page
+#wowslider-container1
+	.ws_images
+				ul
+					li
+						img(src='http://wowslider.com/sliders/demo-31/data1/images/autumn1072827.jpg', alt='online photo galleries', title='Autumn')
+					li
+						img(src='http://wowslider.com/sliders/demo-31/data1/images/bench560435.jpg', alt='free online photo gallery', title='Autumn')
+					li
+						img(src='http://wowslider.com/sliders/demo-31/data1/images/fall1072821.jpg', alt='online photo galleries', title='Autumn')
+					li
+						img(src='http://wowslider.com/sliders/demo-31/data1/images/road1072823.jpg', alt='online photo gallery free', title='Autumn')
+					li
+						img(src='http://wowslider.com/sliders/demo-31/data1/images/tree99852.jpg', alt='Autumn', title='online image gallery')
+					li
+						img(src='http://wowslider.com/sliders/demo-31/data1/images/woods1072819.jpg', alt='Autumn', title='animation photo gallery')
+		.ws_shadow
+		#test
+	.ws_script(style='position:absolute;left:-99%')
+		a(href='http://wowslider.net') css image gallery
+	.ws_shadow
+script(type='text/javascript', src='/engine1/wowslider.js')
+script(type='text/javascript', src='/engine1/script.js')
+script.
+	buildListAjax('/sql/vnmacsdb/select 10 * from testlog',"#test");
+
+// End WOWSlider.com BODY section

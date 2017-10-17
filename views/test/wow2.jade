@@ -1,0 +1,43 @@
+
+doctype html
+head
+	title Css image gallery
+	meta(http-equiv='content-type', content='text/html; charset=utf-8')
+	meta(name='description', content='Made with WOW Slider - Create beautiful, responsive image sliders in a few clicks. Awesome skins and animations. Css image gallery')
+	// Start WOWSlider.com HEAD section
+	// add to the <head> of your page
+	link(rel='stylesheet', type='text/css', href='/engine1/style.css')
+	script(type='text/javascript', src='/engine1/jquery.js')
+
+#wowslider-container1
+	.ws_images
+		ul
+			li
+				img#wows1_0(src='/data1/images/a_new_day_has_come.jpg', alt='a_new_day_has_come', title='a_new_day_has_come')
+			li
+				img#wows1_1(src='http://wowslider.com/sliders/demo-31/data1/images/autumn1072827.jpg', alt='Paris-1920x1200-007', title='Paris-1920x1200-007')
+			li
+				img#wows1_2(src='/data1/images/pariseiffeltowerautumn2560x1600.jpg', alt='paris-eiffel-tower-autumn-2560x1600', title='paris-eiffel-tower-autumn-2560x1600')
+			li
+				img#wows1_3(src='data1/images/pariseiffeltowerdesktopwallpaper.jpg', alt='html5 slider', title='paris-eiffel-tower-desktop-wallpaper')
+			li
+				img#wows1_4(src='/data1/images/pariswallpaper.jpg', alt='paris-wallpaper', title='paris-wallpaper')
+          
+	.ws_bullets
+		div
+			a(href='#', title='a_new_day_has_come')
+				span 1
+			a(href='#', title='Paris-1920x1200-007')
+				span 2
+			a(href='#', title='paris-eiffel-tower-autumn-2560x1600')
+				span 3
+			a(href='#', title='paris-eiffel-tower-desktop-wallpaper')
+				span 4
+			a(href='#', title='paris-wallpaper')
+				span 5
+	.ws_script(style='position:absolute;left:-99%')
+		a(href='http://wowslider.net') css image gallery
+	.ws_shadow
+script(type='text/javascript', src='/engine1/wowslider.js')
+script(type='text/javascript', src='/engine1/script.js')
+// End WOWSlider.com BODY section
