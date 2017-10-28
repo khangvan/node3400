@@ -159,6 +159,7 @@ function fetchJSONFile(path, callback) {
         };
         httpRequest.open('get', path);
         httpRequest.send(); 
+        return data;
     }
  
 function buildHtmlTableRAWfromAjax(urld3, SharpWID) {

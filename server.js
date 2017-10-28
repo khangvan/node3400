@@ -146,12 +146,17 @@ app.get('/smtboard', function(req,res) { res.render("template/smtboard")});
 app.get('/datatables', function(req,res) { res.render("template/datatables")});
 app.get('/slidebar', function(req,res) { res.render("template/slidebar")});
 app.get('/template/:name', function(req,res) { 
-    res.render(`template/${req.params.name}`)}); // allow template for test
+    res.render(`template/${req.params.name}`)}); // allow template for template
     app.get('/test/:name', function(req,res) { 
         res.render(`test/${req.params.name}`)}); // allow template for test
 app.get('/imwm/:name', function(req,res) { 
-    res.render(`imwm/${req.params.name}`)}); // allow template for test
+    res.render(`imwm/${req.params.name}`)}); // allow template for imwm
 
+    app.get('/pms/show=:name', function(req,res) { 
+        res.render(`pms/show`,{linename: `${req.params.name}`, q10: 1 , q5: 5 }
+    )}); // allow template for imwm
+    app.get('/pms/:name', function(req,res) { 
+        res.render(`pms/${req.params.name}`)}); // allow template for imwm
 var dataroot=
     [
         {
@@ -207,9 +212,9 @@ app.get('/:type', function (req, res) {
 
    var fullDate = new Date();
    var type =req.params.type;
-    if (type == 'favicon.con')
+    if (type == 'favicon.con' || type===undefined || type==='undefined')
         {
-            type =test;
+            //type =test;
             return;
         }
     console.log("#start------#"+fullDate);
@@ -219,11 +224,11 @@ app.get('/:type', function (req, res) {
 
         if (err) {
             console.log(err);
-            
+            return;
         }
 			var query ='';
             query =getquerybyRequire(type);
-
+          
 			console.log('001-then run '+query);
 
         // create Request object
@@ -247,72 +252,72 @@ app.get('/:type', function (req, res) {
 
 
 //// get for line
-app.get('/pms/:from&:to', function (req, res) {
-   var rpttype =req.params.pmsreportype;
-   var from =req.params.from;
-   var to =req.params.to;
- console.log('003-' + rpttype + from+to);
-       // connect to your database
-    sql.connect(config, function (err) {
+// app.get('/pms/:from&:to', function (req, res) {
+//    var rpttype =req.params.pmsreportype;
+//    var from =req.params.from;
+//    var to =req.params.to;
+//  console.log('003-' + rpttype + from+to);
+//        // connect to your database
+//     sql.connect(config, function (err) {
 
-        if (err) console.log(err);
-		//string query
-		var query ='';
-
-
-
-           if (rpttype =='pmssum') {
-                    	query ="SELECT * FROM tempLineSUMrich where event_date >='"+from+"' and event_date <='"+to+"'";
-           }
-           else if (rpttype=='pmsdetail'){
-                  		query ="SELECT * FROM tempPOSUMrich where event_date >='"+from+"' and event_date <='"+to+"'";
-           }
+//         if (err) console.log(err);
+// 		//string query
+// 		var query ='';
 
 
-           else{
 
-           }
-           // create Request object
-           var request = new sql.Request();
-           console.log('003-2'+query);
-        // query to the database and get the records
-        request.query(query , function (err, recordset) {
-
-            if (err) console.log(err)
-
-            // send records as a response
-            res.send(recordset);
+//            if (rpttype =='pmssum') {
+//                     	query ="SELECT * FROM tempLineSUMrich where event_date >='"+from+"' and event_date <='"+to+"'";
+//            }
+//            else if (rpttype=='pmsdetail'){
+//                   		query ="SELECT * FROM tempPOSUMrich where event_date >='"+from+"' and event_date <='"+to+"'";
+//            }
 
 
-        });
-    });
-});
+//            else{
+
+//            }
+//            // create Request object
+//            var request = new sql.Request();
+//            console.log('003-2'+query);
+//         // query to the database and get the records
+//         request.query(query , function (err, recordset) {
+
+//             if (err) console.log(err)
+
+//             // send records as a response
+//             res.send(recordset);
 
 
-// get for line
-app.get('/pms/line=:linename', function (req, res) {
-   var line =req.params.linename;
- console.log('004-pmstodaydetail'+line);
-       // connect to your database
-    sql.connect(config, function (err) {
-
-        if (err) console.log(err);
-
-        // create Request object
-        var request = new sql.Request();
-
-        // query to the database and get the records
-        request.query("SELECT * FROM tempPOSUMrich where linename ='"+line+"'" , function (err, recordset) {
-
-            if (err) console.log(err)
-
-            // send records as a response
-            res.send(recordset);
+//         });
+//     });
+// });
 
 
-        });
-    });
-});
+// // get for line
+// app.get('/pms/line=:linename', function (req, res) {
+//    var line =req.params.linename;
+//  console.log('004-pmstodaydetail'+line);
+//        // connect to your database
+//     sql.connect(config, function (err) {
+
+//         if (err) console.log(err);
+
+//         // create Request object
+//         var request = new sql.Request();
+
+//         // query to the database and get the records
+//         request.query("SELECT * FROM tempPOSUMrich where linename ='"+line+"'" , function (err, recordset) {
+
+//             if (err) console.log(err)
+
+//             // send records as a response
+//             res.send(recordset);
+
+
+//         });
+//     });
+// });
 
 //CRUD#1 insert
 app.get('/pms8310/insert=:linename', function (req, res) {
