@@ -150,16 +150,17 @@ function fetchJSONFile(path, callback) {
         if (httpRequest.readyState === 4) {
             if (httpRequest.status === 200) {
                 var data = JSON.parse(httpRequest.responseText);
-                   console.log('ajax data: ',JSON.stringify(data));
+                   console.log('fetchJSONFile ajax data: ',JSON.stringify(data));
                    // alert(JSON.stringify(data));
                    //alert("go ajax");
                 if (callback) callback(data);
+                return data;
             }
         }
         };
         httpRequest.open('get', path);
         httpRequest.send(); 
-        return data;
+        
     }
  
 function buildHtmlTableRAWfromAjax(urld3, SharpWID) {

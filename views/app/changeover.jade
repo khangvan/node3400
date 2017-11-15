@@ -154,12 +154,12 @@ script.
   var sortAs = $.pivotUtilities.sortAs;
   var tpl = $.pivotUtilities.aggregatorTemplates;
  
-  let  url =`http://vnmacsrpt2:5000/sql/smta/exec SiplaceOIS.dbo.amevn_reportChangeOver`;
+  let  url =`http://vnmacsrpt2:5000/sql/smta/exec SiplaceOIS.dbo.[GetDataReport]`;
     $.getJSON(url, function (mps) {
     //alert (JSON.stringify(mps));
      $("#output").pivotUI(mps, {
-      cols: ["EventDate", "EventHour"],
-      rows: ["Machine","WhatChange"],
+      cols: ["ChangeoverType"],
+      rows: ["MachineID", "Board"],
       vals: ["RunningTimeMin"],
       aggregatorName: "Sum",
       rendererName: "Heatmap"

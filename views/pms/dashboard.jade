@@ -133,7 +133,8 @@ script(type='text/javascript').
     if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
     console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
     }
-    var data = [
+    var data =
+    [
     {date: "2011-11-14T16:17:54Z", quantity: 2, total: 190, tip: 100, type: "tab"},
     {date: "2011-11-14T16:20:19Z", quantity: 2, total: 190, tip: 100, type: "tab"},
     {date: "2011-11-14T16:28:54Z", quantity: 1, total: 300, tip: 200, type: "visa"},
@@ -147,10 +148,11 @@ script(type='text/javascript').
     {date: "2011-11-14T17:25:45Z", quantity: 2, total: 200, tip: 0, type: "cash"},
     {date: "2011-11-14T17:29:52Z", quantity: 1, total: 200, tip: 100, type: "visa"}
     ];
-    data =[{"rn":"1","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":13,"shiftname":"Shift1","cnt":20},{"rn":"2","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":12,"shiftname":"Shift1","cnt":20},{"rn":"3","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":11,"shiftname":"Shift1","cnt":20},{"rn":"4","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":10,"shiftname":"Shift1","cnt":10},{"rn":"5","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":9,"shiftname":"Shift1","cnt":17},{"rn":"6","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":9,"shiftname":"Shift1","cnt":2},{"rn":"7","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":8,"shiftname":"Shift1","cnt":21},{"rn":"8","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":7,"shiftname":"Shift1","cnt":17},{"rn":"9","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":6,"shiftname":"Shift1","cnt":10}];
-    let url =`/sql/vnmsrv601/
-            exec Finalassy.dbo.sp001_RealtimeReport`
-    //data = fetchJSONFile( url);
+    
+    //data =[{"rn":"1","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":13,"shiftname":"Shift1","cnt":20},{"rn":"2","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":12,"shiftname":"Shift1","cnt":20},{"rn":"3","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":11,"shiftname":"Shift1","cnt":20},{"rn":"4","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":10,"shiftname":"Shift1","cnt":10},{"rn":"5","po_number":"101025242   ","model":"740158900                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":9,"shiftname":"Shift1","cnt":17},{"rn":"6","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":9,"shiftname":"Shift1","cnt":2},{"rn":"7","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":8,"shiftname":"Shift1","cnt":21},{"rn":"8","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":7,"shiftname":"Shift1","cnt":17},{"rn":"9","po_number":"101025869   ","model":"740159200                     ","line":"FX01                ","event_date":"2017-10-28T00:00:00.000Z","event_hour":6,"shiftname":"Shift1","cnt":10}];
+    //- let url =`/sql/vnmsrv601/
+    //-         exec Finalassy.dbo.sp001_RealtimeReport`
+    //- data = fetchJSONFile( url);
     //- alert(JSON.stringify(data));
     data.forEach(function(d){
     var tempDate = new Date(d.event_date);

@@ -1,0 +1,391 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    title RETURN MATERIAL
+    link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
+    //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
+    link(href='/css/bootstrap.css', rel='stylesheet')
+    style(type='text/css')
+     body {
+     padding-top: 30px;
+     padding-bottom: 40px;
+     }
+     .sidebar-nav {
+     padding: 9px 0;
+     background-color:#3333ff
+     }
+     .navbar {
+     background-color:#3333ff
+     }
+     table {
+        border-collapse: collapse;
+     }
+     table, th, td {
+            border: 1px solid black;
+     }
+     input{
+        width: 150px
+     }
+    //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
+    //- link(rel='stylesheet', type='text/css', href='/css/jquery.dataTables.min.css')
+    script(type='text/javascript', language='javascript', src='/js/jquery-1.12.4.min.js')
+    //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
+    //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
+    //-script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.js')
+    //script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.min.js')
+    //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
+    script(type="text/javascript", src="/js/d3.v4.min.js") 
+
+    //- script(type="text/javascript", src="/js/dataTables.pageResize.min.js") 
+    
+    link(href='/css/select2.min.css', rel='stylesheet')
+    script(src='/js/select2.min.js')
+    
+
+
+
+    
+    script(type='text/javascript', language='javascript', src='/js/url2id.js')
+    //- script.init(type='text/javascript').
+   
+ body.wide.comments.example
+   .navbar.navbar-inverse.navbar-fixed-top
+           .navbar-inner
+             .container-fluid
+               a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse', )
+                 span.icon-bar
+                 span.icon-bar
+                 span.icon-bar
+               a.brand(href='') MATERIAL RETURN
+               .nav-collapse.collapse
+                 //p.navbar-text.pull-right
+                 //  | Logged in as
+                 //  a.navbar-link(href='#') Username
+                 ul.nav
+                   li.active
+                     a(href='/doc/pickmaterial.html') DOC
+                
+ 
+   .container-fluid
+    .row-fluid
+     .span12 
+            //- img#imghide(src="/img/warehouse.jpg", alt="")
+    .row-fluid
+     .span6      
+            input#op(type="text", placeholder="Operator code.", onkeydown=`goNext(event,this,"check1")`)
+            //- input#order(type="text", value='', placeholder="Transfer Order", onkeydown=`loadTabletodo();`)
+     .span4
+            a.btn.btn-primary.btn-medium(onclick=`ClearAll(); op.value=''`) START NEW
+            //- a.btn.btn-primary.btn-small(onclick="order.value='';document.getElementById('order').focus();") Clear TO#
+  .container-fluid
+    .row-fluid
+     .span6
+        #mat Material
+          input#check1(type="text",tabindex='-1', placeholder="MATERIAL", onkeydown=`Verify2input(event,this,"check1");`)
+        
+          input#check2(type="text",tabindex='-1', placeholder="QTY", onkeydown=`letSave(event,this);`)
+          
+    //-  .span6
+        a.btn.btn-primary.btn-large(onclick='verify()') Confirm PickMaterial Done»
+ .container-fluid
+   .row-fluid
+     .span12
+       table#RT.display(cellspacing='0', width='100%')
+   script.
+    $(document).ready(function () {
+        ClearAll();
+        document.getElementById('op').focus();
+        
+    });
+    var count =0;
+    var main ='';
+    var a= document.getElementById("check1");
+    function Verify2input(event,ele, nextinput) {
+      if(event.keyCode == 13) {
+          //alert(ele.value);    
+          var locnext=''    ;
+          if (ele.value=="") {
+           alert("Nhập thông tin");
+           document.getElementById(ele).focus();
+           }
+          else {
+                
+               if (count ==0 && check1.value !='')
+               {
+                main=check1.value; //set master
+                msg.op=op.value;
+                msg.mat=main;
+                count =1 ; check1.value=''; // clear and go
+                locnext='check1';
+                mat.value=main;
+               }
+                 else if (count ==1 && check1.value !='')
+               {
+                   
+                 if (check1.value ===main)
+                 {    
+                    a.style.backgroundColor = "green";
+                    //- alert("ok");
+                    //set green
+                    count =0;main=''; //all done
+                    locnext ='check2';
+                 }
+                 else {
+                                          //set red
+                     a.style.backgroundColor = "red";
+                     alert(`WRONG PARTNUMBER: ${check1.value}; should be: ${main}`);
+
+                     count =1 ; check1.value=''; // clear and go
+                    locnext='check1';
+                 }
+                 
+                    
+               }
+                 document.getElementById(locnext).focus(); // go next qty
+                //- window.setTimeout(function () { 
+                //-     document.getElementById('check1').focus(); 
+                //- }, 0);
+                
+                //- setTimeout(function(){
+                //-     $("check1").focus();
+                //-     }, 0);
+            
+
+          }
+      }
+    }
+      var msg;
+    function ClearAll(){
+        a.style.backgroundColor = "white";
+        check1.value='';
+        check2.value="";
+        document.getElementById("check1").focus();
+        msg={op:"",mat:"Unknown",cnt:0};
+    }
+    function letSave(event,ele){
+        if(event.keyCode == 13) {
+            
+            locnext="check1";
+        if(check2.value!=0){
+            //go set msg.count
+            msg.cnt= check2.value;
+            //go upload
+            //- alert(JSON.stringify(msg));
+            sql =`/sql/vnmsrv601/exec Pickpack.dbo.mt010_amevn_Logs '${msg.op}','${msg.mat}',${msg.cnt}`
+            //- fetchJSONFile(sql, function(data){
+            //-       console.log("fetchJSONFile data is: "  +JSON.stringify(data));
+                  
+            //-   }) 
+             buildHtmlTable(sql,`#RT`); 
+            //done and clear all focus
+        ClearAll();
+        locnext="check1";
+        }
+        else{
+         locnext="check2";
+        }
+        document.getElementById(locnext).focus();
+        }
+    }
+    var mainval ='';
+    function getMainVal(){
+        if (count ==0) {
+            
+            mainval=check.value;
+            console.log('get mianvalue', mainval);
+        }
+    }
+    function getValforCheck(){
+        getMainVal(); //start pick with mainvalue set
+        if(count <3 && check.value != '')
+        {
+            if (check.value==mainval){
+                check.value='';
+                count +=count; //+1
+                console.log('rs',check.value,count);
+        }
+            
+            
+
+        }
+    }
+
+    var goNext= function(event,ele, nextinput) {
+      if(event.keyCode == 13) {
+          //alert(ele.value);        
+          if (ele.value=="") {
+           alert("Nhập thông tin");
+           document.getElementById(ele).focus();
+           }
+          else {
+           document.getElementById(nextinput).focus();
+          }
+      }
+    }
+    function DienCodeNV(){
+        if (op.value =='')
+            {
+                alert('Điền Code Nhân viên trước!');
+                document.getElementById('op').focus();
+                return;
+            }
+            else
+            {
+                    var edit_save = document.getElementById("imghide");
+                    edit_save.src = "";
+            }   
+    }
+    function checkFirst(){
+        //check data if exits in json
+        //first value check
+        if (!(check1.value == '') && check2.value== ''&& check3.value == ''){
+            let to= order.value;
+            let url =`/sql/vnmsrv601/exec Pickpack.dbo.[pp010_amevn_LoadTO] '${to}','1'`; // set 1 for show all aLLow splite
+            fetchJSONFile(url, function(data){
+                  console.log("fetchJSONFile data is: "  +JSON.stringify(data));
+                  globalData=data;
+              }) 
+            
+                  var hasMatch =false;
+
+                    for (var index = 0; index < globalData.length; ++index) {
+
+                     var localData = globalData[index];
+
+                    if(localData.Material == check1.value){
+                    hasMatch = true;
+                    return true;
+                    break;
+                    }
+                    }
+                    if (hasMatch==false){
+                        let checkpn =check1.value;
+                         alert(`Material ${checkpn} không thuộc TO ${to} này`);
+                        check1.value='';
+                        
+                        return false;
+                        document.getElementById('check1').focus();
+                        
+                    }
+
+                    
+             
+        }
+        else{
+            //nothing
+        }
+    }
+
+    var goLoadandNext= function(event,ele, nextinput) {
+        var e=event || window.event;
+      if(event.keyCode == 13) {
+          
+         
+            
+          //alert(ele.value);        
+          if (ele.value=="") {
+           alert("Please input info");
+           }
+          else {
+           
+                verify();
+                checkFirst();
+
+            
+            document.getElementById(nextinput).focus();
+          }
+          
+        
+          
+      }
+    }
+
+    //- function LoadTable(event,ele,nextinput){
+    //-     if(event.keyCode == 13) {
+            
+    //-       //alert(ele.value);        
+    //-       if (ele.value=="") {
+    //-        alert("Please input info");
+    //-        }
+    //-       else {
+    //-         DienCodeNV();
+    //-         let to= order.value;
+    //-         buildHtmlTable(`/sql/vnmsrv601/exec Pickpack.dbo.[pp010_amevn_LoadTO] '${to}'`,`#TOview`);  
+    //-         document.getElementById(nextinput).focus();
+    //-       }
+    //-   }
+        
+    //- }
+    
+    var globalData;
+    function loadTabletodo(){
+            if(1==1) {
+               DienCodeNV();
+                let to= order.value;
+                let url =`/sql/vnmsrv601/exec Pickpack.dbo.[pp010_amevn_LoadTO] '${to}','0'`;
+                buildHtmlTable(url,`#TOview`);  
+                
+            
+        } 
+        fetchJSONFile(url, function(data){
+                    console.log("fetchJSONFile data is: "  +JSON.stringify(data));
+                    globalData=data;
+                })
+    }
+
+   
+
+    function loadTableall(){
+            if(1==1) {
+             {
+                DienCodeNV();
+                let to= order.value;
+                buildHtmlTable(`/sql/vnmsrv601/exec Pickpack.dbo.[pp010_amevn_LoadTO] '${to}',1`,`#TOview`);  
+                
+            }
+        } 
+    }
+    
+    function verify() {
+        //- DienCodeNV();
+
+        let a,b,c;
+        a= check1.value;
+        b= check2.value;
+        c=check3.value;
+        //first value check
+        //- if (!(a == '') && b == ''&& c == ''){
+        //-     if(checkFirst()){
+        //-         //go next
+        //-         alert("thuoc TO")
+        //-     }
+        //-     else
+        //-     {
+        //-                  alert(`Material ko thuoc TO này`);
+        //-                 check1.value='';
+        //-                 document.getElementById('check1').focus();
+                        
+        //-     }
+        //- }
+
+        if (a==b && a==c && !(a == '') && b != ''&& c != ''){
+            let to= order.value;
+            let mat= check1.value;
+            let code= op.value;
+            let qty= 0;
+            buildHtmlTable(`/sql/vnmsrv601/exec Pickpack.dbo.pp020_amevn_ConsumedMatAtTO '${to}','${mat}','${code}','${qty}'`,`#TOview`);  
+            check1.value='';
+            check2.value='';
+            check3.value='';
+            document.getElementById("check1").focus();
+         }
+        
+    }
+
+   
+   
+    
+   
+  
