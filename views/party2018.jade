@@ -1,0 +1,220 @@
+
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description', content='')
+  meta(name='author', content='')
+  title LET'S PARTY!
+  // Bootstrap Core CSS
+  link(href='vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+  // Custom Fonts
+  link(href='vendor/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+  link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
+  // Custom CSS
+  link(href='/css/stylish-portfolio1.css', rel='stylesheet')
+
+  link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
+  //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
+  //- link(href='/css/bootstrap.css', rel='stylesheet')
+  //link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')//ok
+  //- link(rel='stylesheet', type='text/css', href='/css/jquery.dataTables.min.css')
+  script(type='text/javascript', language='javascript', src='/js/jquery-1.12.4.min.js')
+  //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
+  //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
+  //- script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.js')
+  //script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.min.js')
+  //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
+  script(type="text/javascript", src="/js/d3.v4.min.js") 
+  
+  //DO RESIZE W
+  script(type="text/javascript", src="/js/dataTables.pageResize.min.js") 
+  script(type='text/javascript', language='javascript', src='/js/url2id.js')
+// Navigation
+//- a#menu-toggle.btn.btn-dark.btn-lg.toggle(href='#')
+//-   i.fa.fa-bars
+//- nav#sidebar-wrapper
+//-   ul.sidebar-nav
+//-     a#menu-close.btn.btn-light.btn-lg.pull-right.toggle(href='#')
+//-       i.fa.fa-times
+//-     li
+//-       a.js-scroll-trigger(href='#top') Home
+//-     li
+//-       a.js-scroll-trigger(href='#about') About
+//-     li
+//-       a.js-scroll-trigger(href='#services') Services
+//-     li
+//-       a.js-scroll-trigger(href='#portfolio') Portfolio
+//-     li
+//-       a.js-scroll-trigger(href='#contact', onclick='$(') Contact
+// Header
+header#top.header
+  .text-vertical-center
+    h1  COMPANY BIRTHDAY & NEW YEAR PARTY 2018
+    h3 
+    br
+    //- input(type="text", placehoder="Mã Nhân Viên" onkeydown='if (this.event==13) alert("123");') NHAP MA VA ENTER
+    input(type="text", placeholder="Nhập mã NV để tra nhanh", onkeydown=`goNext(this,"order");`)
+    br
+    table#testd3.display(cellspacing='0', width='100%')
+    br
+    a.btn.btn-dark.btn-lg.js-scroll-trigger(href='#services') Xem thêm
+// About
+//- section#about.about
+//- //-   .container.text-center
+//- //-     h2 Stylish Portfolio is the perfect theme for your next project!
+//- //-     p.lead
+//- //-       a(target='_blank', href='http://join.deathtothestockphoto.com/') Death to the Stock Photo
+//- //-   // /.container
+// Services
+section#services.services.bg-primary.text-white
+  .container
+    .row.text-center
+      .col-lg-10.mx-auto
+        h2 THÔNG TIN 
+        hr.small
+        .row
+          .col-md-3.col-sm-6
+            .service-item
+              span.fa-stack.fa-4x
+                i.fa.fa-circle.fa-stack-2x
+                i.fa.fa-info-circle.fa-stack-1x.text-primary
+              h4
+                strong XEM CƠ CẤU GIẢI THƯỞNG
+              p Áp dụng cho tất cả nhân viên tra giải thưởng 
+              a.btn.btn-light(href='hr/cocaugiai') Xem thêm
+          .col-md-3.col-sm-6
+            .service-item
+              span.fa-stack.fa-4x
+                i.fa.fa-circle.fa-stack-2x
+                i.fa.fa-gift.fa-stack-1x.text-primary
+              h4
+                strong KIỂM TRA GIẢI CỦA MÌNH
+              p Dành cho tất cả nhân viên tự kiểm tra giải thưởng của mình
+              a.btn.btn-light(href='hr/tragiai') Xem thêm
+          .col-md-3.col-sm-6
+            .service-item
+              span.fa-stack.fa-4x
+                i.fa.fa-circle.fa-stack-2x
+                i.fa.fa-sign-language.fa-stack-1x.text-primary
+              h4
+                strong TRAO GIẢI THƯỞNG CHO NHÂN VIÊN
+              p Chỉ dành cho HRadmin - phải có password
+              a.btn.btn-light(href='hr/admin') Xem thêm
+          .col-md-3.col-sm-6
+            .service-item
+              span.fa-stack.fa-4x
+                i.fa.fa-circle.fa-stack-2x
+                i.fa.fa-star-half-o.fa-stack-1x.text-primary
+              h4
+                strong CÁC THÔNG TIN KHÁC
+              p Liên hệ HR admin để có các thông tin liên quan.
+              a.btn.btn-light(href='#') Xem thêm
+        // /.row (nested)
+      // /.col-lg-10
+    // /.row
+  // /.container
+// Callout
+aside.callout
+  .text-vertical-center
+    h1 CHÚC CÁC BẠN CÓ MỘT NGÀY VUI VẺ CÙNG GIA ĐÌNH DATALOGIC !
+// Portfolio
+//- section#portfolio.portfolio
+//-   .container
+//-     .row
+//-       .col-lg-10.mx-auto.text-center
+//-         h2 Our Work
+//-         hr.small
+//-         .row
+//-           .col-md-6
+//-             .portfolio-item
+//-               a(href='#')
+//-                 img.img-portfolio.img-fluid(src='img/portfolio-1.jpg')
+//-           .col-md-6
+//-             .portfolio-item
+//-               a(href='#')
+//-                 img.img-portfolio.img-fluid(src='img/portfolio-2.jpg')
+//-           .col-md-6
+//-             .portfolio-item
+//-               a(href='#')
+//-                 img.img-portfolio.img-fluid(src='img/portfolio-3.jpg')
+//-           .col-md-6
+//-             .portfolio-item
+//-               a(href='#')
+//-                 img.img-portfolio.img-fluid(src='img/portfolio-4.jpg')
+//-         // /.row (nested)
+//-         a.btn.btn-dark(href='#') View More Items
+//-       // /.col-lg-10
+//-     // /.row
+//-   // /.container
+//- // Call to Action
+//- aside.call-to-action.bg-primary.text-white
+//-   .container.text-center
+//-     h3 The buttons below are impossible to resist.
+//-     a.btn.btn-lg.btn-light(href='#') Click Me!
+//-     a.btn.btn-lg.btn-dark(href='#') Look at Me!
+// Map
+section#contact.map
+  iframe(width='100%', height='100%', frameborder='0', scrolling='no', marginheight='0', marginwidth='0', src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d44332.80919229515!2d106.77771974735896!3d10.849237558099306!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752737bbe25f8f%3A0x4774da28e4e64421!2sDATALOGIC!5e0!3m2!1svi!2s!4v1505130235362')
+  br
+  small
+    //- a(href='https://maps.google.com/maps?f=q&source=embed&hl=en&geocode=&q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&aq=0&oq=twitter&sll=28.659344,-81.187888&sspn=0.128789,0.264187&ie=UTF8&hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&t=m&z=15&iwloc=A')
+    a(href="https://goo.gl/maps/HKmF3quZFxK2")
+    
+    href
+// Footer
+footer
+  .container
+    .row
+      .col-lg-10.mx-auto.text-center
+        //- h4
+        //-   strong Start Bootstrap
+        //- p
+        //-   br
+        //- ul.list-unstyled
+        //-   li
+        //-     i.fa.fa-phone.fa-fw
+        //-   li
+        //-     i.fa.fa-envelope-o.fa-fw
+        //-     a(href='mailto:name@example.com') name@example.com
+        //- br
+        //- ul.list-inline
+        //-   li.list-inline-item
+        //-     a(href='#')
+        //-       i.fa.fa-facebook.fa-fw.fa-3x
+        //-   li.list-inline-item
+        //-     a(href='#')
+        //-       i.fa.fa-twitter.fa-fw.fa-3x
+        //-   li.list-inline-item
+        //-     a(href='#')
+        //-       i.fa.fa-dribbble.fa-fw.fa-3x
+        //- hr.small
+        p.text-muted Copyright &copy; Datalogic 2018
+  a#to-top.btn.btn-dark.btn-lg.js-scroll-trigger(href='#top')
+    i.fa.fa-chevron-up.fa-fw.fa-1x
+// Bootstrap core JavaScript
+script(src='vendor/jquery/jquery.min.js')
+script(src='vendor/popper/popper.min.js')
+script(src='vendor/bootstrap/js/bootstrap.min.js')
+// Plugin JavaScript
+script(src='vendor/jquery-easing/jquery.easing.min.js')
+// Custom scripts for this template
+script(src='/js/stylish-portfolio.js')
+script
+  var goNext= function(ele, nextinput) {
+      if(event.keyCode == 13) {
+          //alert(ele.value);        
+          if (ele.value=="") {
+           alert("Please input info");
+           }
+          else {
+           $('#testd3').empty();
+                buildHtmlTableD3(`/sql/vnmacsrpt2/
+            exec hrtrs.dbo.[sp01ViewAllorCode] '${ele.value}'
+            `,'#testd3');
+          }
+          
+        
+          
+      }
+    }

@@ -85,6 +85,9 @@ app.get('/', function(req,res) {
 app.get('/welcome', function(req,res) {
     res.render("welcome");
   });
+  app.get('/party2018', function(req,res) {
+    res.render("party2018");
+  });
 
 
 //var express = require('express');
@@ -149,14 +152,17 @@ app.get('/template/:name', function(req,res) {
     res.render(`template/${req.params.name}`)}); // allow template for template
     app.get('/test/:name', function(req,res) { 
         res.render(`test/${req.params.name}`)}); // allow template for test
-app.get('/imwm/:name', function(req,res) { 
-    res.render(`imwm/${req.params.name}`)}); // allow template for imwm
+    app.get('/imwm/:name', function(req,res) { 
+        res.render(`imwm/${req.params.name}`)}); // allow template for imwm
 
     app.get('/pms/show=:name', function(req,res) { 
         res.render(`pms/show`,{linename: `${req.params.name}`, q10: 1 , q5: 5 }
     )}); // allow template for imwm
     app.get('/pms/:name', function(req,res) { 
         res.render(`pms/${req.params.name}`)}); // allow template for imwm
+  
+    app.get('/hr/:name', function(req,res) { 
+        res.render(`hr/${req.params.name}`)}); // allow template for imwm
 var dataroot=
     [
         {
