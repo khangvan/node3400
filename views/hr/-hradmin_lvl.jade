@@ -48,14 +48,9 @@ html
                 exec hrtrs.dbo.[sp01ViewAllorCode]`,'#bang2');
 
                 // list dsgiai
-                dsgiai();
-            }
-            function dsgiai()
-            {
-                // list dsgiai
                 $('#dsgiai').empty();
                 buildHtmlTable(`/sql/vnmacsrpt2/
-                exec HRTRS.dbo.sp3_ThongkeGiai
+                select OrderLevel Giải, PrizeID [Mã Giải], PrizeName [Tên Món Hàng] from HRTRS.dbo.PrizeCat order by OrderLevel
                 `,'#dsgiai');
             }
             function tragiai(ele){
@@ -85,47 +80,21 @@ html
                 
                         $('#bang2').empty();
                          $('#bang1').empty();
-                         setTimeout(function() {
-                             //- view all data
+
+                        //- view all data
                         buildHtmlTableD3(`/sql/vnmacsrpt2/
                         exec hrtrs.dbo.[sp01ViewAllorCode] '${code.value}'
                         `,'#bang2');
-                             }, 500);
-                        
                     }
             }
             function nhangiai(){
                 $('#bang1').empty();
                 $('#bang2').empty();
-                var delayInMilliseconds = 2000; //1 second
-
-                setTimeout(function() {
-                    url=`/sql/vnmacsrpt2/
-                    exec hrtrs.dbo.[sp02_NhanQua] '${code.value}'`;
-                    fetchJSONFile(url, function(data){
-                    console.log("fetchJSONFile data is: "  +JSON.stringify(data));
-                    
-                    }) 
-                }, 1000);
-
-                setTimeout(function() {
-                    url=`/sql/vnmacsrpt2/
-                    exec hrtrs.dbo.[sp02_NhanQua] '${code.value}'`;
-                    fetchJSONFile(url, function(data){
-                    console.log("fetchJSONFile data is: "  +JSON.stringify(data));
-                    
-                    }) 
-                }, 0);
-
-                setTimeout(function() {
-                    fnctragiai();
-                }, 1000);
-                
-                
-                //- buildHtmlTableD3(url,'#bang1_z');
+                buildHtmlTableD3(`/sql/vnmacsrpt2/
+                exec hrtrs.dbo.[sp02_NhanQua] '${code.value}'`,'#bang1_z');
                  $('#bang1').empty();
                 //- alert('Nhận giải xong');
-                
+                 fnctragiai();
                 $('#code').value='';
                 $('#code').focus();
                 
@@ -157,8 +126,7 @@ html
                   li.active
                     a(href='/party2018') HOME
              //- button.btn.btn-primary(type="submit",onclick="refresh();") RefeshData
-        p Lưu ý: Khi nhấn trao giải là nhân viên đã nhận giải với thời gian thực. KIỂM TRA ĐẢM BẢO THỜI GIAN NHẬN QUÀ ĐƯỢC GHI NHẬN VÀO HỆ THỐNG
-        
+        p Lưu ý: Khi nhấn trao giải là nhân viên đã nhận giải với thời gian thực
         input#code(type="text", placehoder="Mã Nhân Viên" ,onkeydown="tragiai(this)") Nhập mã
         button.btn.btn-primary(type="submit", onclick="fnctragiai()") Tra Giải
         button.btn.btn-primary(type="submit", onclick="nhangiai()") Trao giải và Nhập hệ thống
@@ -166,8 +134,8 @@ html
         table#bang2.display(cellspacing='0', width='100%')
 
         //- input#nvdoigiai(type="text", placehoder="Mã Nhân Viên" ) 
-        //- input#giaidoi(type="text", placehoder="Mã Giải" ) 
-        //- button.btn.btn-primary(type="submit", onclick="capnhatgiai()") GO UP PZ LEVEL
+        input#giaidoi(type="text", placehoder="Mã Giải" ) 
+        button.btn.btn-primary(type="submit", onclick="capnhatgiai()") GO UP PZ LEVEL
         table#dsdoigianew.display(cellspacing='0', width='100%')
         table#dsgiai.display(cellspacing='0', width='100%')
 

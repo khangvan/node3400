@@ -4,6 +4,14 @@ html
     meta(http-equiv='Content-type', content='text/html; charset=utf-8')
     meta(name='viewport', content='width=device-width,initial-scale=1')
     title 2018
+    style(type='text/css')
+        body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        }
+        .sidebar-nav {
+        padding: 9px 0;
+        }
     link(rel='shortcut icon', type='image/png', href='/media/images/favicon.png')
     //link(rel='alternate', type='application/rss+xml', title='RSS 2.0', href='http://www.datatables.net/rss.xml')
     link(href='/css/bootstrap.css', rel='stylesheet')
@@ -40,7 +48,9 @@ html
       function refresh() {
       $('#testd3').empty();
           buildHtmlTableD3(`/sql/vnmacsrpt2/
-      select OrderLevel Giải, PrizeID [Mã Giải], PrizeName [Tên Món Hàng] from HRTRS.dbo.PrizeCat order by OrderLevel
+      select OrderLevel Giải, PrizeID [Mã Giải], PrizeName [Tên Món Hàng] from HRTRS.dbo.PrizeCat 
+      WHERE LEN(PrizeID) >1
+      order by OrderLevel
       `,'#testd3');
       
      
@@ -51,6 +61,19 @@ html
       
       
   body.wide.comments.example
+    .navbar.navbar-inverse.navbar-fixed-top
+          .navbar-inner
+            .container-fluid
+              a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.brand(href='/party2018') PARTY2018
+              .nav-collapse.collapse
+                  ul.nav
+                  li.active
+                    a(href='/party2018') HOME
+    br    
     h1 CƠ CẤU GIẢI THƯỞNG NĂM 2018
     //- button.btn.btn-primary(type="submit",onclick="refresh();") RefeshData
    

@@ -23,7 +23,7 @@ head
   //script(type='text/javascript', language='javascript', src='//code.jquery.com/jquery-1.12.4.js')//ok
   //script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')//OK
   //- script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.js')
-  //script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.min.js')
+  //- script(type='text/javascript', language='javascript', src='/js/jquery.dataTables.min.js')
   //script(type="text/javascript", src="http://d3js.org/d3.v3.min.js") //ok
   script(type="text/javascript", src="/js/d3.v4.min.js") 
   
@@ -54,7 +54,8 @@ header#top.header
     h3 
     br
     //- input(type="text", placehoder="Mã Nhân Viên" onkeydown='if (this.event==13) alert("123");') NHAP MA VA ENTER
-    input(type="text", placeholder="Nhập mã NV để tra nhanh", onkeydown=`goNext(this,"order");`)
+    input#code(type="text", placeholder="Nhập mã NV để tra nhanh", onkeydown=`goNext(this,"order");`)
+    a.btn.btn-dark.btn-sm.js-scroll-trigger(onclick=`fnctragiai();`) TRA KQ
     br
     table#testd3.display(cellspacing='0', width='100%')
     br
@@ -109,7 +110,7 @@ section#services.services.bg-primary.text-white
               h4
                 strong CÁC THÔNG TIN KHÁC
               p Liên hệ HR admin để có các thông tin liên quan.
-              a.btn.btn-light(href='#') Xem thêm
+              a.btn.btn-light(href='hr/admin_lvl') Xem thêm
         // /.row (nested)
       // /.col-lg-10
     // /.row
@@ -191,7 +192,7 @@ footer
         //- hr.small
         p.text-muted Copyright &copy; Datalogic 2018
   a#to-top.btn.btn-dark.btn-lg.js-scroll-trigger(href='#top')
-    i.fa.fa-chevron-up.fa-fw.fa-1x
+    //- i.fa.fa-chevron-up.fa-fw.fa-1x
 // Bootstrap core JavaScript
 script(src='vendor/jquery/jquery.min.js')
 script(src='vendor/popper/popper.min.js')
@@ -200,7 +201,26 @@ script(src='vendor/bootstrap/js/bootstrap.min.js')
 script(src='vendor/jquery-easing/jquery.easing.min.js')
 // Custom scripts for this template
 script(src='/js/stylish-portfolio.js')
-script
+script.
+  $(document).ready(function() {
+                $('#code').focus();
+
+            } );
+  function fnctragiai(){
+                    if (code.value =="") {
+                        //- refresh()
+                        $('#code').focus();
+                    }
+                    else {
+                
+                        $('#testd3').empty();
+                          buildHtmlTableD3(`/sql/vnmacsrpt2/
+                      exec hrtrs.dbo.[sp01ViewAllorCode] '${code.value}'
+                      `,'#testd3');
+                      this.eval='';
+                      this.focus();
+                    }
+            } 
   var goNext= function(ele, nextinput) {
       if(event.keyCode == 13) {
           //alert(ele.value);        
@@ -212,9 +232,8 @@ script
                 buildHtmlTableD3(`/sql/vnmacsrpt2/
             exec hrtrs.dbo.[sp01ViewAllorCode] '${ele.value}'
             `,'#testd3');
+            this.eval='';
+            this.focus();
           }
-          
-        
-          
-      }
+        }
     }

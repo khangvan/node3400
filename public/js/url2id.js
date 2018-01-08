@@ -145,6 +145,11 @@ const buildHtmlTableD3=(urld3, SharpWID)=>{
 }
  
 function fetchJSONFile(path, callback) {
+    var delayInMilliseconds = 1000; //1 second
+
+    setTimeout(function() {
+    //your code to be executed after 1 second
+    
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
         if (httpRequest.readyState === 4) {
@@ -160,7 +165,7 @@ function fetchJSONFile(path, callback) {
         };
         httpRequest.open('get', path);
         httpRequest.send(); 
-        
+    }, delayInMilliseconds);
     }
  
 function buildHtmlTableRAWfromAjax(urld3, SharpWID) {

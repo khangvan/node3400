@@ -48,11 +48,6 @@ html
                 exec hrtrs.dbo.[sp01ViewAllorCode]`,'#bang2');
 
                 // list dsgiai
-                dsgiai();
-            }
-            function dsgiai()
-            {
-                // list dsgiai
                 $('#dsgiai').empty();
                 buildHtmlTable(`/sql/vnmacsrpt2/
                 exec HRTRS.dbo.sp3_ThongkeGiai
@@ -115,12 +110,11 @@ html
                     console.log("fetchJSONFile data is: "  +JSON.stringify(data));
                     
                     }) 
-                }, 0);
+                }, 500);
 
                 setTimeout(function() {
                     fnctragiai();
                 }, 1000);
-                
                 
                 //- buildHtmlTableD3(url,'#bang1_z');
                  $('#bang1').empty();
@@ -166,8 +160,8 @@ html
         table#bang2.display(cellspacing='0', width='100%')
 
         //- input#nvdoigiai(type="text", placehoder="Mã Nhân Viên" ) 
-        //- input#giaidoi(type="text", placehoder="Mã Giải" ) 
-        //- button.btn.btn-primary(type="submit", onclick="capnhatgiai()") GO UP PZ LEVEL
+        input#giaidoi(type="text", placehoder="Mã Giải" ) 
+        button.btn.btn-primary(type="submit", onclick="capnhatgiai()") GO UP PZ LEVEL
         table#dsdoigianew.display(cellspacing='0', width='100%')
         table#dsgiai.display(cellspacing='0', width='100%')
 
