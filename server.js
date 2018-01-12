@@ -735,41 +735,51 @@ function cleanforSQL(strquery){
     return strquery;
 
 }
+app.get('/psql/:server/:data', function (req, res) {
 
+    var pg = require("pg");
+   
+    // var conString = `pg://pi:reports@${req.params.server}:5432/test`;
+    // console.log("cn: ",conString);
+    const client = new pg.Client({
+        user: 'pi',
+        host: 'pi-camcam',
+        database: 'test',
+        password: 'reports',
+        port: 5432,
+        connectionTimeout:1000
+      })
+      client.connect()
+
+    // var client = new pg.Client(conString);
+    // client.connect();
+
+    var query = req.params.data.toString();
+    query= cleanforSQL(query); // new data
+    console.log("truy van la: ",query);
+
+      
+      client.query(query, (err, result) => {
+        console.log(err, result)
+        if (err) {console.log(err)
+        }
+        else {
+            res.send(result.rows);
+        }
+        
+        client.end()
+    })
+    
+});
 app.get('/sql/:server/:data', function (req, res) {
 var strconfig =req.params.server;
 var ismysql = false; // default for mssql
-    // if (strconfig=="vnmsrv601")
-    //     {
-    //         mainconfig = vnmsrv601;
-    //     }
-    // else if (strconfig=="vnmacsdb")
-    //     {
-    //         mainconfig = vnmacsdb;
-    //     }
-
-    //  else if (strconfig=="vnmacsrpt2")
-    //     {
-    //         mainconfig = vnmacsrpt2;
-    //     }
-
-    //     else if (strconfig=="svkacsrpt2")
-    //        {
-    //            mainconfig = svkacsrpt2;
-    //        }
-    //    else if (strconfig=="leonardo")
-    //           {
-    //               mainconfig = leonardo;
-    //    }
-    //    else if (strconfig=="smta")
-    //           {
-    //               mainconfig = smta;
-    //    }
+   
        if (strconfig=="vnmsrv610")
               {
 
             ismysql = true;
-       }
+                }
            else {
             // mainconfig = localhost;
             mainconfig = eval(strconfig);
