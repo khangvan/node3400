@@ -113,6 +113,7 @@
     "nan": "2.6.2",
     "negotiator": "0.5.3",
     "nodemailer": "4.0.1",
+    "nodemon": "^1.14.11",
     "nopt": "2.1.2",
     "object-assign": "4.1.0",
     "object-component": "0.0.3",
