@@ -181,13 +181,15 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server",
+    "start": "node server.js",
+    "nodemon": "nodemon server",
     "nodered": "nodemon C:/Users/kvan/AppData/Roaming/npm/node_modules/node-red/red.js",
     "prd": "cd /d G:/Document Control/Current Method sheet/ && http-server -p 5001 -d -i --cors",
     "httpdoc": "http-server -p 5001 -d -i --cors",
     "syncfromdev": "sync-files D:/Node3400 Y:/Node3400Sync",
     "watch": "sync-files --watch D:/Node3400 Y:/Node3400Sync"
   },
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://KhangVan@bitbucket.org/KhangVan/nodejs.git"
